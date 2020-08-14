@@ -3,16 +3,17 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Configuration;
+using System;
 
 namespace Cosmos.Test
 {
     public class Repository
     {
-        string connectionDetails = ConfigurationManager
-                 .ConnectionStrings["MyConnectionString"].ConnectionString;
+        
         SqlConnection sqlConnection;
         public Repository()
         {
+            string connectionDetails = Environment.GetEnvironmentVariable("MyConnectionString");
             sqlConnection = new SqlConnection(connectionDetails);
         }
         public async Task<ToDoItem> SaveToDoItemToDB (ToDoItem toDoItem)
