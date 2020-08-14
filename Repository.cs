@@ -2,12 +2,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Cosmos.Test
 {
     public class Repository
     {
-        string connectionDetails = Constants.getConnectionString();
+        string connectionDetails = ConfigurationManager
+                 .ConnectionStrings["MyConnectionString"].ConnectionString;
         SqlConnection sqlConnection;
         public Repository()
         {
