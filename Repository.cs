@@ -7,7 +7,7 @@ namespace Cosmos.Test
 {
     public class Repository
     {
-        string connectionDetails = "Server=tcp:ana-sqlserver.database.windows.net,1433;Initial Catalog=database-ana;Persist Security Info=False;User ID=ana;Password=007Pus007;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        string connectionDetails = Constants.getConnectionString();
         SqlConnection sqlConnection;
         public Repository()
         {
