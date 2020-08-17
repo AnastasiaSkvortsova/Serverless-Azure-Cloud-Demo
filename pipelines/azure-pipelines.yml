@@ -39,14 +39,14 @@ steps:
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'webAppLinux'
-    appName: 'todofunctionapplication'
+    appName: 'test_api'
     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 - task: AzureFunctionApp@1
   displayName: Deploy Azure Function
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'functionAppLinux'
-    appName: 'todofunctionapplication'
+    appName: 'test_api'
     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 
