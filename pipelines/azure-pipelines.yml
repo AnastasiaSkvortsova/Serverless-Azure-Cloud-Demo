@@ -27,7 +27,7 @@ steps:
     command: 'publish'
     projects: 'test_api.csproj'
     publishWebProjects: false
-    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--no-build --configuration release --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
 
 - publish: '$(Build.ArtifactStagingDirectory)'
