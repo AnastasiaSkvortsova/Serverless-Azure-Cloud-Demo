@@ -19,6 +19,7 @@ steps:
   displayName: Build the project
   inputs:
     command: 'build'
+    arguments: '--configuration release'
     projects: 'test_api.csproj'
 
 - task: DotNetCoreCLI@2
