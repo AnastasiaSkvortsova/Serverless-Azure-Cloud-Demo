@@ -11,7 +11,30 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
-  displayName: build the project
+  displayName: Build the project
   inputs:
     command: 'build'
     projects: 'test_api.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish the project
+  inputs:
+    command: 'publish'
+    projects: 'test_api.csproj'
+    publishWebProjects: false
+    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+    zipAfterPublish: true
+
+- publish: '$(Build.ArtifactStagingDirectory)'
+  artifact: drop
+  
+- task: AzureFunctionApp@1
+  displayName: Deploy Azure Function
+  inputs:
+    azureSubscription: 'ToDoConnection'
+    appType: 'functionAppLinux'
+    appName: '$(WebAppName)'
+    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+
+
