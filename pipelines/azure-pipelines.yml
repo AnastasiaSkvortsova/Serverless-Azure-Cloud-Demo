@@ -39,7 +39,7 @@ steps:
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'functionAppLinux'
-    appName: '$(WebAppName)'
+    appName: 'todofunctionapplication'
     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 
