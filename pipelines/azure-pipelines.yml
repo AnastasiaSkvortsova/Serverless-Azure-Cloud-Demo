@@ -34,16 +34,19 @@ steps:
 - publish: '$(Build.ArtifactStagingDirectory)'
   artifact: drop
 
-- download: current
-  artifact: drop
-
-- task: AzureWebApp@1
-  displayName: 'Azure App Service Deploy: website'
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-    azureSubscription: 'ToDoConnection'
-    appType: 'webAppLinux'
-    appName: 'todofunctionapplication'
-    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'ToDoConnection'
+    subscriptionId: '36d3687c-f042-4575-a046-b95c67efc8ca'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'rg-todo-api'
+    location: 'East US 2'
+    templateLocation: 'Linked artifact'
+    csmFile: 'arm_rg.json'
+    csmParametersFile: 'arm_template_parameters.json'
+    deploymentMode: 'Incremental'
+
 - task: AzureFunctionApp@1
   displayName: Deploy Azure Function
   inputs:
