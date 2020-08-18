@@ -9,7 +9,7 @@
         "value": "East US 2"
       },
       "storageAccountName": {
-        "value": "todo-sqlserver"
+        "value": "todosqlserver"
       }
     }
   }
