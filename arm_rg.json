@@ -16,14 +16,14 @@
     "resources": [
       {
         "type": "Microsoft.Resources/resourceGroups",
-        "apiVersion": "2019-05-10",
+        "apiVersion": "2018-05-01",
         "name": "[parameters('rgName')]",
         "location": "[parameters('rgLocation')]",
         "properties": {}
       },
       {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-10",
+            "apiVersion": "2018-05-01",
             "name": "storageDeployment",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
