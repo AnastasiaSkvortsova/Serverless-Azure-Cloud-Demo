@@ -34,19 +34,22 @@ steps:
 - publish: '$(Build.ArtifactStagingDirectory)'
   artifact: drop
 
+- download: current
+  artifact: drop
+
 - task: AzureWebApp@1
   displayName: 'Azure App Service Deploy: website'
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'webAppLinux'
-    appName: 'test_api'
+    appName: 'todofunctionapplication'
     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 - task: AzureFunctionApp@1
   displayName: Deploy Azure Function
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'functionAppLinux'
-    appName: 'test_api'
+    appName: 'todofunctionapplication'
     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 
