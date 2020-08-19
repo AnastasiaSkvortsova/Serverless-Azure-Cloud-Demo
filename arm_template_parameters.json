@@ -8,14 +8,8 @@
       "rgLocation": {
         "value": "East US 2"
       },
-      "storageAccountName": {
-        "value": "todosqlserver"
-      },
       "hostingPlanName": {
         "value": "todoappserviceplan"
-      },
-      "functionappName": {
-        "value": "todoazurefunctionapplication"
       }
     }
   }
