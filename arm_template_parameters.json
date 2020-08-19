@@ -7,9 +7,6 @@
       },
       "rgLocation": {
         "value": "East US 2"
-      },
-      "hostingPlanName": {
-        "value": "todoappserviceplan"
       }
     }
   }
