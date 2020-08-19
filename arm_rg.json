@@ -21,7 +21,7 @@
       {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-05-10",
-            "name": "deployment",
+            "name": "Deployment",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
