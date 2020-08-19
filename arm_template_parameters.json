@@ -10,6 +10,12 @@
       },
       "storageAccountName": {
         "value": "todosqlserver"
+      },
+      "hostingPlanName": {
+        "value": "todoappserviceplan"
+      },
+      "functionappName": {
+        "value": "todoazurefunctionapplication"
       }
     }
   }
