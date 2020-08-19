@@ -34,6 +34,13 @@ steps:
 - publish: '$(Build.ArtifactStagingDirectory)'
   artifact: drop
 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'ToDoConnection'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az group create --name "rg-todo-app-api" --location "East US 2"'
+
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
