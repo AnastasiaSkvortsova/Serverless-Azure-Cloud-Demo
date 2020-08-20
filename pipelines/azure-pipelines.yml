@@ -46,15 +46,6 @@ steps:
   inputs:
     script: 'ls'
 
-- task: CmdLine@2
-  inputs:
-    script: 'cd $(System.DefaultWorkingDirectory)/$(Build.ArtifactStagingDirectory)'
-
-- task: CmdLine@2
-  inputs:
-    script: 'ls'
-  
-  
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'ToDoConnection'
