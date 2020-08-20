@@ -35,10 +35,10 @@ steps:
   artifact: drop
 
 - task: AzureCLI@2
-  displayName: 'Create Resource Group'
   inputs:
-    azureSubscription: '36d3687c-f042-4575-a046-b95c67efc8ca'
-    scriptType: ps
+    azureSubscription: 'ToDoConnection'
+    scriptType: 'ps'
+    scriptLocation: 'scriptPath'
     scriptPath: '$(Build.ArtifactStagingDirectory)/drop/CreateResourceGroup.ps1'
 
 - task: AzureResourceManagerTemplateDeployment@3
