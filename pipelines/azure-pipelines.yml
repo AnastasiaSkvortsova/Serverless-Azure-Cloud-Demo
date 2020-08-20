@@ -53,13 +53,6 @@ steps:
     csmFile: 'arm_rg.json'
     deploymentMode: 'Incremental'
 
-- task: AzureFunctionApp@1
-  displayName: Deploy Azure Function
-  inputs:
-    azureSubscription: 'ToDoConnection'
-    appType: 'functionAppLinux'
-    appName: 'todofunctionapplication'
-    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 
 
