@@ -40,11 +40,16 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'cd $(Build.ArtifactStagingDirectory)'
+    script: |
+      cd $(Build.ArtifactStagingDirectory)
+      ls
 
 - task: CmdLine@2
   inputs:
-    script: 'ls'
+    script: |
+      cd $(Pipeline.Workspace)
+      ls
+      pwd
 
 - task: AzureCLI@2
   inputs:
