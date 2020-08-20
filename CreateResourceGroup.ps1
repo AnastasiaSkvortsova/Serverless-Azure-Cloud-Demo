@@ -1,2 +1,2 @@
-Write-Host "Creating Resource Group $($env:ResourceGroupName)"
-az group create -l eastus -n $($env:ResourceGroupName) --tags AppName=N/A Owner=Ana Requestor=N/A Description=N/A Environment=$($env:Environment)
+Write-Host "Creating Resource Group rg-todo-app-api"
+az group create -l eastus -n rg-todo-app-api
