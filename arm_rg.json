@@ -27,7 +27,7 @@
             "type": "String"
         },
         "skuName": {
-            "defaultValue": "Standard_LRS",
+            "defaultValue": "S0",
             "type": "String"
         },
         "location": {
