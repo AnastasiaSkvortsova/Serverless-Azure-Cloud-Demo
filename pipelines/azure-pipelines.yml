@@ -39,7 +39,7 @@ steps:
     azureSubscription: 'ToDoConnection'
     scriptType: 'ps'
     scriptLocation: 'scriptPath'
-    scriptPath: '$(Build.ArtifactStagingDirectory)/drop/CreateResourceGroup.ps1'
+    scriptPath: '$(Build.ArtifactStagingDirectory)/CreateResourceGroup.ps1'
 
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
