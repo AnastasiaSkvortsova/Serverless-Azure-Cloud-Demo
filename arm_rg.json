@@ -178,7 +178,7 @@
             "type": "Bool"
         },
         "clientIpRuleName": {
-            "defaultValue": "",
+            "defaultValue": "Home",
             "type": "String"
         },
         "clientIpValue": {
@@ -193,13 +193,13 @@
     "variables": {
         "uniqueStorage": "[uniqueString('36d3687c-f042-4575-a046-b95c67efc8ca', 'rg-todo-app-api', 'East US 2')]",
         "storageName": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
-        "subnetPoliciesTemplateName": "[concat('SubnetPolicies-', if(parameters('enablePrivateEndpoint'), parameters('privateEndpointNestedTemplateId'), 'n'))]",
-        "privateEndpointTemplateName": "[concat('PrivateEndpoint-', if(parameters('enablePrivateEndpoint'), parameters('privateEndpointNestedTemplateId'), 'n'))]",
+        "subnetPoliciesTemplateName": "[concat('SubnetPolicies-', if(parameters('enablePrivateEndpoint'), parameters('privateEndpointNestedTemplateId'), ''))]",
+        "privateEndpointTemplateName": "[concat('PrivateEndpoint-', if(parameters('enablePrivateEndpoint'), parameters('privateEndpointNestedTemplateId'), ''))]",
         "deploymentTemplateApi": "2018-05-01",
         "privateEndpointApi": "2019-04-01",
-        "privateEndpointId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointSubscriptionId'), parameters('privateEndpointResourceGroup'), 'Microsoft.Network/privateEndpoints', parameters('privateEndpointName')), 'n')]",
-        "privateEndpointVnetId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointVnetSubscriptionId'), parameters('privateEndpointVnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('privateEndpointVnetName')), 'n')]",
-        "privateEndpointSubnetResourceId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointVnetSubscriptionId'), parameters('privateEndpointVnetResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', parameters('privateEndpointVnetName'), parameters('privateEndpointSubnetName')), 'n')]",
+        "privateEndpointId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointSubscriptionId'), parameters('privateEndpointResourceGroup'), 'Microsoft.Network/privateEndpoints', parameters('privateEndpointName')), '')]",
+        "privateEndpointVnetId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointVnetSubscriptionId'), parameters('privateEndpointVnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('privateEndpointVnetName')), '')]",
+        "privateEndpointSubnetResourceId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointVnetSubscriptionId'), parameters('privateEndpointVnetResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', parameters('privateEndpointVnetName'), parameters('privateEndpointSubnetName')), '')]",
         "uniqueRoleGuid": "[guid(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), variables('storageBlobContributor'), resourceId('Microsoft.Sql/servers', parameters('serverName')))]",
         "StorageBlobContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]"
     },
@@ -325,8 +325,8 @@
                         "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
                     ],
                     "properties": {
-                        "storageContainerPath": "[if(parameters('enableVA'), concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))).primaryEndpoints.blob, 'vulnerability-assessment'), 'n')]",
-                        "storageAccountAccessKey": "[if(and(parameters('enableVA'),not(parameters('useVAManagedIdentity'))), listKeys(variables('storageName'), '2018-02-01').keys[0].value, 'n')]",
+                        "storageContainerPath": "[if(parameters('enableVA'), concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))).primaryEndpoints.blob, 'vulnerability-assessment'), '')]",
+                        "storageAccountAccessKey": "[if(and(parameters('enableVA'),not(parameters('useVAManagedIdentity'))), listKeys(variables('storageName'), '2018-02-01').keys[0].value, '')]",
                         "recurringScans": {
                             "isEnabled": true,
                             "emailSubscriptionAdmins": true,
@@ -468,7 +468,7 @@
                                         "value": "[parameters('privateLinkPrivateDnsZoneFQDN')]"
                                     },
                                     "privateEndpointNicResourceId": {
-                                        "value": "[if(parameters('enablePrivateEndpoint'), reference(concat('Microsoft.Resources/deployments/', variables('privateEndpointTemplateName'))).outputs.networkInterfaceId.value, 'n')]"
+                                        "value": "[if(parameters('enablePrivateEndpoint'), reference(concat('Microsoft.Resources/deployments/', variables('privateEndpointTemplateName'))).outputs.networkInterfaceId.value, '')]"
                                     },
                                     "nicRecordsTemplateUri": {
                                         "value": "[parameters('privateDnsForPrivateEndpointNicTemplateLink')]"
