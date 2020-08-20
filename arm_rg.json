@@ -35,7 +35,7 @@
             "type": "String"
         },
         "maxSizeBytes": {
-            "defaultValue": "1073741824",
+            "defaultValue": 1073741824,
             "type": "Int"
         },
         "serverName": {
