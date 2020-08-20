@@ -45,14 +45,6 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'ls'
-    
-- task: CmdLine@2
-  inputs:
-    script: 'cd $(Build.ArtifactStagingDirectory)/drop'
-
-- task: CmdLine@2
-  inputs:
-    script: 'ls'
 
 - task: CmdLine@2
   inputs:
