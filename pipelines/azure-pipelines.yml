@@ -34,22 +34,12 @@ steps:
 - publish: '$(Build.ArtifactStagingDirectory)'
   artifact: drop
 
-- task: CmdLine@2
+- task: AzureCLI@2
   inputs:
-    script: 'ls'
-
-- task: CmdLine@2
-  inputs:
-    script: |
-      cd $(Build.ArtifactStagingDirectory)
-      ls
-
-- task: CmdLine@2
-  inputs:
-    script: |
-      cd $(Pipeline.Workspace)
-      ls
-      pwd
+    azureSubscription: 'ToDoConnection'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az group create -l eastus -n rg-todo-app-api'
 
 - task: AzurePowerShell@5
   inputs:
