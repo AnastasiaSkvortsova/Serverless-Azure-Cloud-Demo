@@ -41,23 +41,16 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: 'az group create -l eastus -n rg-todo-app-api'
 
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'ToDoConnection'
-    ScriptType: 'FilePath'
-    ScriptPath: 'CreateResourceGroup.ps1'
-    azurePowerShellVersion: 'LatestVersion'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'ToDoConnection'
     subscriptionId: '36d3687c-f042-4575-a046-b95c67efc8ca'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'rg-todo-api'
+    resourceGroupName: 'rg-todo-app-api'
     location: 'East US 2'
     templateLocation: 'Linked artifact'
     csmFile: 'arm_rg.json'
-    csmParametersFile: 'arm_template_parameters.json'
     deploymentMode: 'Incremental'
 
 - task: AzureFunctionApp@1
