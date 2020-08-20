@@ -37,7 +37,7 @@ steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'ToDoConnection'
-    scriptType: 'ps'
+    scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: 'az group create -l eastus -n rg-todo-app-api'
 
