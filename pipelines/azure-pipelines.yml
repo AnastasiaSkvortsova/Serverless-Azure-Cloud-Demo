@@ -51,13 +51,12 @@ steps:
       ls
       pwd
 
-- task: AzureCLI@2
+- task: AzurePowerShell@5
   inputs:
     azureSubscription: 'ToDoConnection'
-    scriptType: 'ps'
-    scriptLocation: 'scriptPath'
-    scriptPath: 'CreateResourceGroup.ps1'
-
+    ScriptType: 'FilePath'
+    ScriptPath: 'CreateResourceGroup.ps1'
+    azurePowerShellVersion: 'LatestVersion'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
