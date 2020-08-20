@@ -34,6 +34,13 @@ steps:
 - publish: '$(Build.ArtifactStagingDirectory)'
   artifact: drop
 
+- task: AzureCLI@2
+  displayName: 'Create Resource Group'
+  inputs:
+    azureSubscription: '36d3687c-f042-4575-a046-b95c67efc8ca'
+    scriptType: ps
+    scriptPath: '$(Build.ArtifactStagingDirectory)/drop/CreateResourceGroup.ps1'
+
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
