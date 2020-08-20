@@ -1,0 +1,2 @@
+Write-Host "Creating Resource Group $($env:ResourceGroupName)"
+az group create -l eastus -n $($env:ResourceGroupName) --tags AppName=N/A Owner=Ana Requestor=N/A Description=N/A Environment=$($env:Environment)
