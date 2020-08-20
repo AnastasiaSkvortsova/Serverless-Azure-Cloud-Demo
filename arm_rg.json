@@ -1,32 +1,23 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "rgName": {
-        "type": "string"
-      },
-      "rgLocation": {
-        "type": "string"
-      }
+        "rgName": {
+            "type": "string"
+        },
+        "rgLocation": {
+            "type": "string"
+        }
     },
     "variables": {},
     "resources": [
-      {
-        "type": "Microsoft.Resources/resourceGroups",
-        "apiVersion": "2019-05-10",
-        "name": "[parameters('rgName')]",
-        "location": "[parameters('rgLocation')]",
-        "properties": {}
-      },
-      {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-10",
-            "name": "Deployment",
-            "resourceGroup": "[parameters('rgName')]",
-            "properties": {
-                "mode": "Incremental"
-            }
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('rgLocation')]",
+            "name": "[parameters('rgName')]",
+            "properties": {}
         }
     ],
     "outputs": {}
-  }
+}
