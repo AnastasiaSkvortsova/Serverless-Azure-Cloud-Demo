@@ -61,7 +61,7 @@ steps:
   inputs:
     azureSubscription: 'ToDoConnection'
     AuthenticationType: 'server'
-    ServerName: 'todoappservernew'
+    ServerName: 'todoappservernew.database.windows.net'
     DatabaseName: 'todobd'
     SqlUsername: 'ana'
     SqlPassword: '007Pus007'
