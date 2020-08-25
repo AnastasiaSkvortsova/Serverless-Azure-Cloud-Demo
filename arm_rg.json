@@ -190,7 +190,7 @@
             "type": "String"
         },
         "appName": {
-            "defaultValue": "toDoFunctionApp",
+            "defaultValue": "toDoFunctionAppAna",
             "type": "String"
         },
         "hostingPlanName": {
