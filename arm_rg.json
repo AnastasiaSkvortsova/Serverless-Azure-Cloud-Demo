@@ -403,6 +403,69 @@
             "condition": "[parameters('enablePrivateEndpoint')]"
         },
         {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('hostingPlanName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "computeMode": "Dynamic",
+                "sku":{  
+                    "name":"Y1",
+                    "tier":"Dynamic",
+                    "size":"Y1",
+                    "family":"Y",
+                    "capacity":0
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-02-01",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('appName')]",
+            "location": "[parameters('location')]",
+            "kind": "functionapp",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+            ],
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+                "siteConfig": {
+                "appSettings": [
+                    {
+                    "name": "AzureWebJobsDashboard",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "AzureWebJobsStorage",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "WEBSITE_CONTENTSHARE",
+                    "value": "[toLower(parameters('appName'))]"
+                    },
+                    {
+                    "name": "FUNCTIONS_EXTENSION_VERSION",
+                    "value": "~2"
+                    },
+                    {
+                    "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                    "value": "8.11.1"
+                    },
+                    {
+                    "name": "FUNCTIONS_WORKER_RUNTIME",
+                    "value": "dotnet"
+                    }
+                ]
+                }
+            }
+        },
+        {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentTemplateApi')]",
             "name": "[concat('PrivateDns-', parameters('privateEndpointNestedTemplateId'))]",
@@ -479,69 +542,6 @@
             "subscriptionId": "[if(parameters('enablePrivateEndpoint'), parameters('privateEndpointVnetSubscriptionId'), parameters('subscriptionId'))]",
             "resourceGroup": "[if(parameters('enablePrivateEndpoint'), parameters('privateEndpointVnetResourceGroup'), parameters('resourceGroupName'))]",
             "condition": "[and(parameters('enablePrivateEndpoint'), parameters('enablePrivateDnsZone'))]"
-        },
-        {
-            "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2018-02-01",
-            "name": "[parameters('hostingPlanName')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "name": "[parameters('hostingPlanName')]",
-                "computeMode": "Dynamic",
-                "sku":{  
-                    "name":"Y1",
-                    "tier":"Dynamic",
-                    "size":"Y1",
-                    "family":"Y",
-                    "capacity":0
-                }
-            }
-        },
-        {
-            "apiVersion": "2018-02-01",
-            "type": "Microsoft.Web/sites",
-            "name": "[parameters('appName')]",
-            "location": "[parameters('location')]",
-            "kind": "functionapp",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
-            ],
-            "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
-                "siteConfig": {
-                "appSettings": [
-                    {
-                    "name": "AzureWebJobsDashboard",
-                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                    },
-                    {
-                    "name": "AzureWebJobsStorage",
-                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                    },
-                    {
-                    "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                    },
-                    {
-                    "name": "WEBSITE_CONTENTSHARE",
-                    "value": "[toLower(parameters('appName'))]"
-                    },
-                    {
-                    "name": "FUNCTIONS_EXTENSION_VERSION",
-                    "value": "~2"
-                    },
-                    {
-                    "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                    "value": "8.11.1"
-                    },
-                    {
-                    "name": "FUNCTIONS_WORKER_RUNTIME",
-                    "value": "dotnet"
-                    }
-                ]
-                }
-            }
         }
     ]
 }
