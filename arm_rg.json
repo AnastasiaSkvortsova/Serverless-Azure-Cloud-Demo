@@ -484,21 +484,7 @@
                                     }
                                 }
                             }
-                        },
-                        {
-                            "type": "Microsoft.Web/serverfarms",
-                            "apiVersion": "2018-02-01",
-                            "name": "EastUSDynamicPlan",
-                            "location": "[parameters('location')]",
-                            "kind": "linux",
-                            "properties": {
-                            "reserved": true
-                        },
-                            "sku": {
-                                "Tier": "Dynamic",
-                                "Name": "B1"
-                            }
-                        }                       
+                        }
                     ]
                 }
             },
