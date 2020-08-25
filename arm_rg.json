@@ -188,6 +188,14 @@
         "subscriptionId": {
             "defaultValue": "36d3687c-f042-4575-a046-b95c67efc8ca",
             "type": "String"
+        },
+        "appName": {
+            "defaultValue": "toDoFunctionApp",
+            "type": "String"
+        },
+        "hostingPlanName": {
+            "defaultValue": "toDoFunctionAppPlan",
+            "type": "String"
         }
     },
     "variables": {
@@ -201,7 +209,8 @@
         "privateEndpointVnetId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointVnetSubscriptionId'), parameters('privateEndpointVnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('privateEndpointVnetName')), '')]",
         "privateEndpointSubnetResourceId": "[if(parameters('enablePrivateEndpoint'), resourceId(parameters('privateEndpointVnetSubscriptionId'), parameters('privateEndpointVnetResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', parameters('privateEndpointVnetName'), parameters('privateEndpointSubnetName')), '')]",
         "uniqueRoleGuid": "[guid(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), variables('storageBlobContributor'), resourceId('Microsoft.Sql/servers', parameters('serverName')))]",
-        "StorageBlobContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]"
+        "StorageBlobContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+        "StorageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageName'))]"
     },
     "resources": [
         {
@@ -491,6 +500,63 @@
             "subscriptionId": "[if(parameters('enablePrivateEndpoint'), parameters('privateEndpointVnetSubscriptionId'), parameters('subscriptionId'))]",
             "resourceGroup": "[if(parameters('enablePrivateEndpoint'), parameters('privateEndpointVnetResourceGroup'), parameters('resourceGroupName'))]",
             "condition": "[and(parameters('enablePrivateEndpoint'), parameters('enablePrivateDnsZone'))]"
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('hostingPlanName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "computeMode": "Dynamic",
+                "sku": "Dynamic"
+            }
+        },
+        {
+            "apiVersion": "2018-02-01",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('appName')]",
+            "location": "[parameters('location')]",
+            "kind": "functionapp",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+            ],
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+                "siteConfig": {
+                "appSettings": [
+                    {
+                    "name": "AzureWebJobsDashboard",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "AzureWebJobsStorage",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "WEBSITE_CONTENTSHARE",
+                    "value": "[toLower(parameters('appName'))]"
+                    },
+                    {
+                    "name": "FUNCTIONS_EXTENSION_VERSION",
+                    "value": "~2"
+                    },
+                    {
+                    "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                    "value": "8.11.1"
+                    },
+                    {
+                    "name": "FUNCTIONS_WORKER_RUNTIME",
+                    "value": "dotnet"
+                    }
+                ]
+                }
+            }
         }
     ]
 }
