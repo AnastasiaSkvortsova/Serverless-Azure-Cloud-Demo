@@ -408,8 +408,11 @@
             "name": "[parameters('hostingPlanName')]",
             "location": "[parameters('location')]",
             "properties": {
-                "name": "[parameters('hostingPlanName')]",
-                "sku": "B1"
+                "name": "[parameters('hostingPlanName')]"
+            },
+            "sku": {
+                "Tier": "Basic",
+                "Name": "B1"
             }
         },
         {
