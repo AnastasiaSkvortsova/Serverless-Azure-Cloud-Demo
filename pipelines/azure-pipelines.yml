@@ -54,7 +54,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'arm_rg.json'
     deploymentMode: 'Incremental'
-    
+
 - task: SqlAzureDacpacDeployment@1
   displayName: Deploy DB schema
   inputs:
@@ -64,6 +64,7 @@ steps:
     DatabaseName: 'todobd'
     SqlUsername: 'ana'
     SqlPassword: '007Pus007'
-    deployType: 'SqlTask'
-    SqlFile: 'toDoObjectsDB.sql'
+    deployType: 'DacpacTask'
+    DeploymentAction: 'Publish'
+    DacpacFile: 'toDoObjectsDB.sql'
     IpDetectionMethod: 'AutoDetect'
