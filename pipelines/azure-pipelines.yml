@@ -35,6 +35,7 @@ steps:
   artifact: drop
 
 - task: AzureCLI@2
+  displayName: Create a Resource Group
   inputs:
     azureSubscription: 'ToDoConnection'
     scriptType: 'pscore'
@@ -42,6 +43,7 @@ steps:
     inlineScript: 'az group create -l eastus -n rg-todo-app-api'
 
 - task: AzureResourceManagerTemplateDeployment@3
+  displayName: Deploy Azure SQL Server and DB
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'ToDoConnection'
@@ -52,7 +54,16 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'arm_rg.json'
     deploymentMode: 'Incremental'
-
-
-
-
+    
+- task: SqlAzureDacpacDeployment@1
+  displayName: Deploy DB schema
+  inputs:
+    azureSubscription: 'ToDoConnection'
+    AuthenticationType: 'server'
+    ServerName: 'todoappservernew'
+    DatabaseName: 'todobd'
+    SqlUsername: 'ana'
+    SqlPassword: '007Pus007'
+    deployType: 'SqlTask'
+    SqlFile: 'toDoObjectsDB.sql'
+    IpDetectionMethod: 'AutoDetect'
