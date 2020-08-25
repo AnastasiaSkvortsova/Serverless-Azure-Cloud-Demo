@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-2019'
 
 steps:
 - task: UseDotNet@2
@@ -38,7 +38,7 @@ steps:
   displayName: Create a Resource Group
   inputs:
     azureSubscription: 'ToDoConnection'
-    scriptType: 'pscore'
+    scriptType: 'ps'
     scriptLocation: 'inlineScript'
     inlineScript: 'az group create -l eastus -n rg-todo-app-api'
 
@@ -54,6 +54,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'arm_rg.json'
     deploymentMode: 'Incremental'
+
 
 - task: SqlAzureDacpacDeployment@1
   displayName: Deploy DB schema
