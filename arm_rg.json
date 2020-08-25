@@ -409,8 +409,7 @@
             "location": "[parameters('location')]",
             "properties": {
                 "name": "[parameters('hostingPlanName')]",
-                "computeMode": "Dynamic",
-                "sku": "Y1"
+                "sku": "B1"
             }
         },
         {
