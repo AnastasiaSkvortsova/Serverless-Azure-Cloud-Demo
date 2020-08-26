@@ -459,20 +459,8 @@
                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                     },
                     {
-                    "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                    },
-                    {
-                    "name": "WEBSITE_CONTENTSHARE",
-                    "value": "[toLower(parameters('appName'))]"
-                    },
-                    {
                     "name": "FUNCTIONS_EXTENSION_VERSION",
-                    "value": "~2"
-                    },
-                    {
-                    "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                    "value": "8.11.1"
+                    "value": "~3"
                     },
                     {
                     "name": "FUNCTIONS_WORKER_RUNTIME",
