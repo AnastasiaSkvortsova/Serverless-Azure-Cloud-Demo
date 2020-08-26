@@ -49,7 +49,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'arm_rg.json'
     csmParametersFile: 'armparameters.json'
-    overrideParameters: '-myConnectionString "$(Release.MyConnectionString)"'
+    overrideParameters: '-myConnectionString "$(MyConnectionString)"'
     deploymentMode: 'Incremental'
 
 - task: AzureFunctionApp@1
