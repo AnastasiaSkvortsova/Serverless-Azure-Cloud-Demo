@@ -10,11 +10,6 @@ pool:
   vmImage: 'windows-2019'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    version: '3.0.x'
-    packageType: runtime
-    
 - task: DotNetCoreCLI@2
   displayName: Build the project
   inputs:
@@ -43,7 +38,7 @@ steps:
     inlineScript: 'az group create -l eastus -n rg-todo-app-api'
 
 - task: AzureResourceManagerTemplateDeployment@3
-  displayName: Deploy Azure SQL Server and DB
+  displayName: Deploy Infrustructure from ARM Template 
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'ToDoConnection'
