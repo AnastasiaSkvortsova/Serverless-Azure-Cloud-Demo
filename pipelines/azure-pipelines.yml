@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'windows-2019'
 
+variables:
+- group: Release
+
 steps:
 - task: DotNetCoreCLI@2
   displayName: Build the project
@@ -48,6 +51,8 @@ steps:
     location: 'East US 2'
     templateLocation: 'Linked artifact'
     csmFile: 'arm_rg.json'
+    csmParametersFile: 'armparameters.json'
+    overrideParameters: '-myConnectionString "$(MyConnectionString)"'
     deploymentMode: 'Incremental'
 
 - task: AzureFunctionApp@1
