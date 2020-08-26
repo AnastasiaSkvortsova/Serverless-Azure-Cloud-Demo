@@ -196,6 +196,10 @@
         "hostingPlanName": {
             "defaultValue": "toDoFunctionAppPlan",
             "type": "String"
+        },
+        "appInsightsName": {
+            "defaultValue": "toDoFunctionAppInsights",
+            "type": "String"
         }
     },
     "variables": {
@@ -413,6 +417,20 @@
             "sku": {
                 "Tier": "Basic",
                 "Name": "B1"
+            }
+        },
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('appInsightsName')]",
+            "type": "Microsoft.Insights/components",
+            "kind": "web",
+            "location": "[parameters('location')]",
+            "tags": {
+                "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('appName'))]": "Resource"
+            },
+            "properties": {
+                "Application_Type": "web",
+                "ApplicationId": "[parameters('appInsightsName')]"
             }
         },
         {
