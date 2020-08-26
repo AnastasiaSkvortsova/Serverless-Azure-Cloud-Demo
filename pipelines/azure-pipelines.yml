@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'windows-2019'
 
+variables:
+- group: Release
+
 steps:
 - task: DotNetCoreCLI@2
   displayName: Build the project
