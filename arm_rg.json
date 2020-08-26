@@ -474,6 +474,10 @@
                     {
                     "name": "FUNCTIONS_WORKER_RUNTIME",
                     "value": "dotnet"
+                    },
+                    {
+                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                    "value": "[reference(resourceId('microsoft.insights/components/', parameters('appInsightsName')), '2015-05-01').InstrumentationKey]"
                     }
                 ]
                 }
