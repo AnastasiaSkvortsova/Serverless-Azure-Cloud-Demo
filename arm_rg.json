@@ -459,6 +459,14 @@
                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                     },
                     {
+                    "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+                    },
+                    {
+                    "name": "WEBSITE_CONTENTSHARE",
+                    "value": "[toLower(parameters('appName'))]"
+                    },
+                    {
                     "name": "FUNCTIONS_EXTENSION_VERSION",
                     "value": "~3"
                     },
