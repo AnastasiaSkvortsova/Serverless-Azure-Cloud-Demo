@@ -301,7 +301,7 @@
                 {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01",
-                    "name": "[parameters('clientIpRuleName')]",
+                    "name": "HomeIP",
                     "location": "[parameters('location')]",
                     "dependsOn": [
                         "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
