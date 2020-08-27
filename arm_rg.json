@@ -333,6 +333,19 @@
             ]
         },
         {
+            "name": "AzureClientIP",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+            ],
+            "properties": {
+                "startIpAddress": "40.123.26.135",
+                "endIpAddress": "40.123.26.135"
+            }
+        },
+        {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentTemplateApi')]",
             "name": "[variables('subnetPoliciesTemplateName')]",
