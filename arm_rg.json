@@ -205,21 +205,27 @@
             "type": "String"
         },
          "apis_todoapp_api_path": {
+            "defaultValue": null,
             "type": "SecureString"
         },
         "namedValues_5f4964ac0d513012109326a0_value": {
+            "defaultValue": null,
             "type": "SecureString"
         },
         "namedValues_todofunctionappana_key_value": {
+            "defaultValue": null,
             "type": "SecureString"
         },
         "subscriptions_5f495e299810d30056070001_displayName": {
+            "defaultValue": null,
             "type": "SecureString"
         },
         "subscriptions_5f495e2a9810d30056070002_displayName": {
+            "defaultValue": null,
             "type": "SecureString"
         },
         "users_1_lastName": {
+            "defaultValue": null,
             "type": "SecureString"
         },
         "service_ToDoAppAPIManagement_name": {
