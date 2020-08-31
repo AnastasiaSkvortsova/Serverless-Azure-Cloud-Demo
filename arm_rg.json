@@ -508,7 +508,7 @@
             "type": "Microsoft.ApiManagement/service",
             "apiVersion": "2019-01-01",
             "name": "[parameters('service_ToDoAPIManagement_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "sku": {
                 "name": "Developer",
                 "capacity": 1
