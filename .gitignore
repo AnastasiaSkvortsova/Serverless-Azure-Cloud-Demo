@@ -72,7 +72,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
-*.vscode
+.vscode
 
 # Chutzpah Test files
 _Chutzpah*
