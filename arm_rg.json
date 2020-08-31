@@ -677,62 +677,6 @@
             }
         },
         {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/AccountClosedPublisher')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/BCC')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/NewApplicationNotificationMessage')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/NewIssuePublisherNotificationMessage')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/PurchasePublisherNotificationMessage')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/QuotaLimitApproachingPublisherNotificationMessage')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/notifications",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/RequestPublisherNotificationMessage')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
             "type": "Microsoft.ApiManagement/service/policies",
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/policy')]",
@@ -924,78 +868,6 @@
             ]
         },
         {
-            "type": "Microsoft.ApiManagement/service/groups/users",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/administrators/1')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/groups', parameters('service_ToDoAPIManagement_name'), 'administrators')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/groups/users",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/developers/1')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/groups', parameters('service_ToDoAPIManagement_name'), 'developers')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/products/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter/administrators')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'starter')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/products/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/unlimited/administrators')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'unlimited')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/products/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter/developers')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'starter')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/products/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/unlimited/developers')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'unlimited')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/products/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter/guests')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'starter')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/products/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/unlimited/guests')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'unlimited')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
             "type": "Microsoft.ApiManagement/service/products/policies",
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter/policy')]",
@@ -1056,16 +928,6 @@
                     }
                 }
             }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/apis/diagnostics/loggers",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api/applicationinsights/toDoFunctionAppInsights')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis/diagnostics', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api', 'applicationinsights')]",
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
         },
         {
             "type": "Microsoft.ApiManagement/service/apis/operations/policies",
