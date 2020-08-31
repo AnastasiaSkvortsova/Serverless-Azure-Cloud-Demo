@@ -57,7 +57,7 @@ steps:
     location: 'East US 2'
     templateLocation: 'Linked artifact'
     csmFile: 'ARM Templates/arm_rg.json'
-    csmParametersFile: 'armparameters.json'
+    csmParametersFile: 'ARM Templates/armparameters.json'
     overrideParameters: '-myConnectionString "$(MyConnectionString)"'
     deploymentMode: 'Incremental'
 
