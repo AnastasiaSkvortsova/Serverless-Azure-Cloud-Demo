@@ -591,26 +591,6 @@
             }
         },
         {
-            "type": "Microsoft.ApiManagement/service/users",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/1')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "firstName": "Administrator",
-                "email": "maksimSkvortsov@gmail.com",
-                "state": "active",
-                "identities": [
-                    {
-                        "provider": "Azure",
-                        "id": "maksimSkvortsov@gmail.com"
-                    }
-                ],
-                "lastName": "Skvortsov"
-            }
-        },
-        {
             "type": "Microsoft.ApiManagement/service/groups",
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/administrators')]",
