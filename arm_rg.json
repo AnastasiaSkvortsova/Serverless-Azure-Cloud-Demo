@@ -203,6 +203,10 @@
         },
         "myConnectionString": {
             "type": "String"
+        },
+        "service_ToDoAPIManagement_name": {
+            "defaultValue": "ToDoAPIManagement",
+            "type": "String"
         }
     },
     "variables": {
