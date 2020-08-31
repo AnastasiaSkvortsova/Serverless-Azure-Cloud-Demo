@@ -204,9 +204,6 @@
         "myConnectionString": {
             "type": "String"
         },
-         "apis_todofunctionapp_api_path": {
-            "type": "SecureString"
-        },
         "namedValues_5f4973ce0ea117006068e04e_value": {
             "type": "SecureString"
         },
