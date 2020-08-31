@@ -666,7 +666,7 @@
             "properties": {
                 "displayName": "toDoItems",
                 "method": "GET",
-                "urlTemplate": "/getToDoItem",
+                "urlTemplate": "/ToDoItems",
                 "templateParameters": [],
                 "responses": []
             }
@@ -682,7 +682,7 @@
             "properties": {
                 "displayName": "toDoItems",
                 "method": "POST",
-                "urlTemplate": "/postToDoItem",
+                "urlTemplate": "/ToDoItems",
                 "templateParameters": [],
                 "responses": []
             }
