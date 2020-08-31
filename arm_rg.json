@@ -203,20 +203,6 @@
         },
         "myConnectionString": {
             "type": "String"
-        },
-        "namedValues_5f4973ce0ea117006068e04e_value": {
-            "type": "SecureString"
-        },
-        "namedValues_todofunctionappana_key_value": {
-            "type": "SecureString"
-        },
-        "service_ToDoAPIManagement_name": {
-            "defaultValue": "ToDoAPIManagement",
-            "type": "String"
-        },
-        "components_toDoFunctionAppInsights_externalid": {
-            "defaultValue": "/subscriptions/36d3687c-f042-4575-a046-b95c67efc8ca/resourceGroups/rg-todo-app-api/providers/microsoft.insights/components/toDoFunctionAppInsights",
-            "type": "String"
         }
     },
     "variables": {
@@ -591,66 +577,6 @@
             }
         },
         {
-            "type": "Microsoft.ApiManagement/service/groups",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/administrators')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "displayName": "Administrators",
-                "description": "Administrators is a built-in group. Its membership is managed by the system. Microsoft Azure subscription administrators fall into this group.",
-                "type": "system"
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/loggers",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/toDoFunctionAppInsights')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "loggerType": "applicationInsights",
-                "credentials": {
-                    "instrumentationKey": "{{Logger-Credentials-5f4973ce0ea117006068e04f}}"
-                },
-                "isBuffered": true,
-                "resourceId": "[parameters('components_toDoFunctionAppInsights_externalid')]"
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/namedValues",
-            "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/5f4973ce0ea117006068e04e')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "displayName": "Logger-Credentials-5f4973ce0ea117006068e04f",
-                "secret": true,
-                "value": "[parameters('namedValues_5f4973ce0ea117006068e04e_value')]"
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/namedValues",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionappana-key')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "displayName": "todofunctionappana-key",
-                "tags": [
-                    "key",
-                    "function",
-                    "auto"
-                ],
-                "secret": true,
-                "value": "[parameters('namedValues_todofunctionappana_key_value')]"
-            }
-        },
-        {
             "type": "Microsoft.ApiManagement/service/policies",
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/policy')]",
@@ -660,48 +586,6 @@
             "properties": {
                 "value": "<!--\r\n    IMPORTANT:\r\n    - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\r\n    - Only the <forward-request> policy element can appear within the <backend> section element.\r\n    - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\r\n    - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\r\n    - To add a policy position the cursor at the desired insertion point and click on the round button associated with the policy.\r\n    - To remove a policy, delete the corresponding policy statement from the policy document.\r\n    - Policies are applied in the order of their appearance, from the top down.\r\n-->\r\n<policies>\r\n  <inbound />\r\n  <backend>\r\n    <forward-request />\r\n  </backend>\r\n  <outbound />\r\n</policies>",
                 "format": "xml"
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/portalsettings",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/delegation')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "subscriptions": {
-                    "enabled": false
-                },
-                "userRegistration": {
-                    "enabled": false
-                }
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/portalsettings",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/signin')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "enabled": false
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/portalsettings",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/signup')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ],
-            "properties": {
-                "enabled": true,
-                "termsOfService": {
-                    "enabled": false,
-                    "consentRequired": false
-                }
             }
         },
         {
@@ -915,20 +799,6 @@
             "properties": {
                 "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"todofunctionappana\" />\r\n    <rewrite-uri template=\"/postToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
                 "format": "xml"
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/subscriptions",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/master')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), '')]"
-            ],
-            "properties": {
-                "scope": "[concat(resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), ''))]",
-                "displayName": "Built-in all-access subscription",
-                "state": "active",
-                "allowTracing": true
             }
         },
         {
