@@ -214,10 +214,6 @@
             "defaultValue": "ToDoAPIManagement",
             "type": "String"
         },
-        "API_name": {
-            "defaultValue": "",
-            "type": "String"
-        },
         "components_toDoFunctionAppInsights_externalid": {
             "defaultValue": "/subscriptions/36d3687c-f042-4575-a046-b95c67efc8ca/resourceGroups/rg-todo-app-api/providers/microsoft.insights/components/toDoFunctionAppInsights",
             "type": "String"
@@ -795,20 +791,6 @@
                     "auto"
                 ],
                 "secret": true
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/subscriptions",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/master')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), parameters('API_name'))]"
-            ],
-            "properties": {
-                "scope": "[concat(resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), parameters('API_name')))]",
-                "displayName": "Built-in all-access subscription",
-                "state": "active",
-                "allowTracing": true
             }
         },
         {
