@@ -30,7 +30,7 @@ steps:
   displayName: Publish the project
   inputs:
     command: 'publish'
-    projects: 'test_api.csproj'
+    projects: '**/Ana.ToDo.FunctionApp.csproj'
     publishWebProjects: false
     arguments: '--no-build --configuration release --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
