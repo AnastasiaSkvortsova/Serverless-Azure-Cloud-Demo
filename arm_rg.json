@@ -688,34 +688,6 @@
             }
         },
         {
-            "type": "Microsoft.ApiManagement/service/diagnostics",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/applicationinsights')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]",
-                "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('service_ToDoAPIManagement_name'), 'toDoFunctionAppInsights')]"
-            ],
-            "properties": {
-                "alwaysLog": "allErrors",
-                "httpCorrelationProtocol": "Legacy",
-                "logClientIp": true,
-                "loggerId": "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('service_ToDoAPIManagement_name'), 'toDoFunctionAppInsights')]",
-                "sampling": {
-                    "samplingType": "fixed",
-                    "percentage": 100
-                }
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/diagnostics/loggers",
-            "apiVersion": "2018-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/applicationinsights/toDoFunctionAppInsights')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/diagnostics', parameters('service_ToDoAPIManagement_name'), 'applicationinsights')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
-            ]
-        },
-        {
             "type": "Microsoft.ApiManagement/service/products/policies",
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter/policy')]",
@@ -726,55 +698,6 @@
             "properties": {
                 "value": "<!--\r\n            IMPORTANT:\r\n            - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\r\n            - Only the <forward-request> policy element can appear within the <backend> section element.\r\n            - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\r\n            - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\r\n            - To add a policy position the cursor at the desired insertion point and click on the round button associated with the policy.\r\n            - To remove a policy, delete the corresponding policy statement from the policy document.\r\n            - Position the <base> element within a section element to inherit all policies from the corresponding section element in the enclosing scope.\r\n            - Remove the <base> element to prevent inheriting policies from the corresponding section element in the enclosing scope.\r\n            - Policies are applied in the order of their appearance, from the top down.\r\n        -->\r\n<policies>\r\n  <inbound>\r\n    <rate-limit calls=\"5\" renewal-period=\"60\" />\r\n    <quota calls=\"100\" renewal-period=\"604800\" />\r\n    <base />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n</policies>",
                 "format": "xml"
-            }
-        },
-        {
-            "type": "Microsoft.ApiManagement/service/apis/diagnostics",
-            "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api/applicationinsights')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]",
-                "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('service_ToDoAPIManagement_name'), 'toDoFunctionAppInsights')]"
-            ],
-            "properties": {
-                "alwaysLog": "allErrors",
-                "httpCorrelationProtocol": "Legacy",
-                "verbosity": "information",
-                "logClientIp": true,
-                "loggerId": "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('service_ToDoAPIManagement_name'), 'toDoFunctionAppInsights')]",
-                "sampling": {
-                    "samplingType": "fixed",
-                    "percentage": 100
-                },
-                "frontend": {
-                    "request": {
-                        "headers": [],
-                        "body": {
-                            "bytes": 0
-                        }
-                    },
-                    "response": {
-                        "headers": [],
-                        "body": {
-                            "bytes": 0
-                        }
-                    }
-                },
-                "backend": {
-                    "request": {
-                        "headers": [],
-                        "body": {
-                            "bytes": 0
-                        }
-                    },
-                    "response": {
-                        "headers": [],
-                        "body": {
-                            "bytes": 0
-                        }
-                    }
-                }
             }
         },
         {
