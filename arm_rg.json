@@ -211,12 +211,15 @@
             "type": "SecureString"
         },
         "subscriptions_5f496cec0129200066070001_displayName": {
+            "defaultValue": "subscription1",
             "type": "SecureString"
         },
         "subscriptions_5f496cec0129200066070002_displayName": {
+            "defaultValue": "subscription2",
             "type": "SecureString"
         },
         "users_1_lastName": {
+            "defaultValue": "Skvortsov",
             "type": "SecureString"
         },
         "service_ToDoAPIManagement_name": {
