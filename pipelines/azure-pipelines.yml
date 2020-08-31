@@ -18,7 +18,13 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration release'
-    projects: 'test_api.csproj'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: Run Unit Tests
+  inputs:
+    command: 'test'
+    projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Publish the project
