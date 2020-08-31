@@ -656,7 +656,7 @@
         },
         {
             "type": "Microsoft.ApiManagement/service/namedValues",
-            "apiVersion": "2019-01-01",
+            "apiVersion": "2019-12-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/5f4973ce0ea117006068e04e')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
