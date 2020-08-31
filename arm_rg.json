@@ -798,10 +798,10 @@
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/master')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
             ],
             "properties": {
-                "scope": "[concat(resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name')), '/')]",
+                "scope": "[concat(resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), '/'))]",
                 "displayName": "Built-in all-access subscription",
                 "state": "active",
                 "allowTracing": true
