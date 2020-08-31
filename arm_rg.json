@@ -548,7 +548,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
             ],
             "properties": {
-                "displayName": "toDoFunctionApp API2",
+                "displayName": "toDoFunctionApp API",
                 "apiRevision": "1",
                 "description": "Import from \"toDoFunctionAppAna\" Function App",
                 "subscriptionRequired": true,
@@ -556,7 +556,7 @@
                     "https"
                 ],
                 "isCurrent": true,
-                "path": "123"
+                "path": ""
             }
         },
         {
