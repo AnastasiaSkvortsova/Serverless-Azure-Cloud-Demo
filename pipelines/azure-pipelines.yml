@@ -25,9 +25,29 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration release --collect "Code coverage"'
-    publishTestResults: true
-    
+    arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
+    custom: 'reportgenerator'
+    arguments: '"-reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\Reports" -tag:$(Build.BuildNumber) -reportTypes:htmlInline'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd $(Build.SourcesDirectory)\TestResults\Coverage
+      ls
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage Results'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\**\coverage.cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)\TestResults\Coverage\Reports'
+    failIfCoverageEmpty: true
+        
 - task: DotNetCoreCLI@2
   displayName: Publish the project
   inputs:
