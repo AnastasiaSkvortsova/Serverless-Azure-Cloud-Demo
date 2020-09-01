@@ -25,31 +25,10 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+    arguments: '--configuration ${{parameters.buildConfiguration}} --collect "Code coverage"'
+    publishTestResults: true
 
-- script: echo "##vso[task.prependpath]$HOME/.dotnet/tools"
-  displayName: 'Update PATH'
-  
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'custom'
-    projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    custom: 'reportgenerator'
-    arguments: '"-reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\Reports" -tag:$(Build.BuildNumber) -reportTypes:htmlInline'
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd $(Build.SourcesDirectory)\TestResults\Coverage
-      ls
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish Code Coverage Results'
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\**\coverage.cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)\TestResults\Coverage\Reports'
-    failIfCoverageEmpty: true
+- script: ./tools/reportgenerator "-reports:$(Agent.TempDirectory)/**/*.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:Cobertura;HtmlInline"
         
 - task: DotNetCoreCLI@2
   displayName: Publish the project
