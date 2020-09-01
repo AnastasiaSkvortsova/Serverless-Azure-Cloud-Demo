@@ -25,6 +25,8 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
+    arguments: '--configuration release --collect "Code coverage"'
+    publishTestResults: true
     
 - task: DotNetCoreCLI@2
   displayName: Publish the project
