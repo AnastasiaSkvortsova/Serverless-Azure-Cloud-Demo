@@ -25,22 +25,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration release --collect "XPlat Code coverage" -- RunConfiguration.DisableAppDomain=true'
-
-- task: PowerShell@2
-  displayName: Install ReportGenerator and Create Reports
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd src/Ana.ToDo.FunctionApp.UnitTests
-      dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.5.8
-      reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
-
-- task: PublishCodeCoverageResults@1  
-  displayName: 'Publish code coverage'  
-  inputs:  
-    codeCoverageTool: Cobertura  
-    summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'  
+    
 - task: DotNetCoreCLI@2
   displayName: Publish the project
   inputs:
