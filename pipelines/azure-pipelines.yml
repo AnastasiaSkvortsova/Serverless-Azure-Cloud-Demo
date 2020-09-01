@@ -32,7 +32,7 @@ steps:
   displayName: 'Install ReportGenerator tool'
   continueOnError: true
 
-- script: $(Build.SourcesDirectory)/reportgenerator "-reports:$(Agent.TempDirectory)/**/*.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:Cobertura;HtmlInline"
+- script: $(Build.SourcesDirectory)/reportgenerator "-reports:$(Agent.TempDirectory)\**\*.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\coverlet\reports" "-reporttypes:Cobertura;HtmlInline"
         
 - task: DotNetCoreCLI@2
   displayName: Publish the project
