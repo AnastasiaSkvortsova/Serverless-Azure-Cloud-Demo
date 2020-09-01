@@ -25,7 +25,9 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-
+    arguments: '--configuration release --collect "Code coverage"'
+    publishTestResults: true
+    
 - task: DotNetCoreCLI@2
   displayName: Publish the project
   inputs:
@@ -56,8 +58,8 @@ steps:
     resourceGroupName: 'rg-todo-app-api'
     location: 'East US 2'
     templateLocation: 'Linked artifact'
-    csmFile: 'arm_rg.json'
-    csmParametersFile: 'armparameters.json'
+    csmFile: 'ARM Templates/arm_rg.json'
+    csmParametersFile: 'ARM Templates/armparameters.json'
     overrideParameters: '-myConnectionString "$(MyConnectionString)"'
     deploymentMode: 'Incremental'
 
@@ -79,5 +81,5 @@ steps:
     SqlUsername: 'ana'
     SqlPassword: '007Pus007'
     deployType: 'SqlTask'
-    SqlFile: 'toDoObjectsDB.sql'
+    SqlFile: 'src/Ana.ToDo.Database/toDoObjectsDB.sql'
     IpDetectionMethod: 'AutoDetect'
