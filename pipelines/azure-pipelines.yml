@@ -25,14 +25,13 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
-    publishTestResults: true
+    arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Code Coverage Results'
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: './MyCoverage/coverage.cobertura.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml'
     failIfCoverageEmpty: true
         
 - task: DotNetCoreCLI@2
