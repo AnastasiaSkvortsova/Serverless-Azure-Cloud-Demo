@@ -25,7 +25,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration ${{parameters.buildConfiguration}} --collect "Code coverage"'
+    arguments: '--configuration release --collect "Code coverage"'
     publishTestResults: true
 
 - script: ./tools/reportgenerator "-reports:$(Agent.TempDirectory)/**/*.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:Cobertura;HtmlInline"
