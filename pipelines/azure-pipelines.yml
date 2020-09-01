@@ -25,14 +25,8 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/coverlet/reports'
+    arguments: '--configuration release --collect "Code coverage"'
     publishTestResults: true
-
-- task: PublishCodeCoverageResults@1  
-  displayName: 'Publish code coverage'  
-  inputs:  
-    codeCoverageTool: Cobertura  
-    summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'  
            
 - task: DotNetCoreCLI@2
   displayName: Publish the project
