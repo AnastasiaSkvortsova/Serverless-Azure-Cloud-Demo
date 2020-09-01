@@ -27,6 +27,9 @@ steps:
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
     arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
 
+- script: echo "##vso[task.prependpath]$HOME/.dotnet/tools"
+  displayName: 'Update PATH'
+  
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
