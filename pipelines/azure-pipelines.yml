@@ -25,7 +25,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"'
+    arguments: '--configuration release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura" /p:CoverletOutput=$(Build.SourcesDirectory)/coverlet/reports'
     publishTestResults: true
 
 - task: PowerShell@2
@@ -35,7 +35,7 @@ steps:
     script: |
       cd src/Ana.ToDo.FunctionApp.UnitTests
       dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.6.5
-      reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
+      reportgenerator -reports:$(Build.SourcesDirectory)/coverlet/reports/**/*.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
 
 - task: PublishCodeCoverageResults@1  
   displayName: 'Publish code coverage'  
