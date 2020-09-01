@@ -28,7 +28,7 @@ steps:
     arguments: '--configuration release --collect "Code coverage"'
     publishTestResults: true
 
-- script: ./tools/reportgenerator "-reports:$(Agent.TempDirectory)/**/*.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:Cobertura;HtmlInline"
+- script: reportgenerator "-reports:$(Agent.TempDirectory)/**/*.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:Cobertura;HtmlInline"
         
 - task: DotNetCoreCLI@2
   displayName: Publish the project
