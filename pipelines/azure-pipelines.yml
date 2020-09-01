@@ -25,7 +25,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration release --collect "Code coverage" -- RunConfiguration.DisableAppDomain=true'
+    arguments: '--configuration release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"'
     publishTestResults: true
 
 - task: PowerShell@2
