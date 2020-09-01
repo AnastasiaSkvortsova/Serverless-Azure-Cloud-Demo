@@ -25,7 +25,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.UnitTests.csproj'
-    arguments: '--configuration release --collect "XPlat Code coverage" -- RunConfiguration.DisableAppDomain=true'
+    arguments: '--configuration release --collect "Code coverage" -- RunConfiguration.DisableAppDomain=true'
     publishTestResults: true
 
 - task: PowerShell@2
