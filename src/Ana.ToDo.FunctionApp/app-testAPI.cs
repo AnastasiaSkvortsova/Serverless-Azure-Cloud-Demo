@@ -35,9 +35,9 @@ namespace Cosmos.Test
         {
             log.LogInformation("C# HTTP trigger function processed a getToDoItem request.");
 
-            List<ToDoItem> toToList= await new Repository().GetAllToToItemsFromDB();
+            List<ToDoItem> toDoList= await new Repository().GetAllToToItemsFromDB();
 
-            return new OkObjectResult(toToList);
+            return new OkObjectResult(toDoList);
         }
 
     }

@@ -34,7 +34,7 @@ namespace Cosmos.Test
         public async Task<List<ToDoItem>> GetAllToToItemsFromDB ()
         {
             await sqlConnection.OpenAsync();
-            string getAllToDos = @"SELECT * FROM toDoItems";
+            string getAllToDos = "SELECT * FROM toDoItems";
             
             SqlCommand getAllToDosCommand = new SqlCommand(getAllToDos, sqlConnection);
 
@@ -54,6 +54,26 @@ namespace Cosmos.Test
             
             await sqlConnection.CloseAsync();
             return listOfToDos;
+        }
+
+        public async Task<ToDoItem> GetItemByIdFromDB (int Id)
+        {
+            await sqlConnection.OpenAsync();
+            string getItemById = @"SELECT * FROM toDoItems WHERE id=@Id";
+
+            SqlCommand getItemByIdCommand = new SqlCommand(getItemById, sqlConnection);
+            getItemByIdCommand.Parameters.AddWithValue("@Id", Id);
+
+            ToDoItem toDoItem = new ToDoItem();
+            using (SqlDataReader reader = getItemByIdCommand.ExecuteReader())
+            {
+                toDoItem.Id = (int)reader.GetValue("id");
+                toDoItem.Name = (string)reader.GetValue("name");
+                toDoItem.IsComplete = (bool)reader.GetValue("isComplete");
+            }
+
+            await sqlConnection.CloseAsync();
+            return toDoItem;
         }
     }
 }
