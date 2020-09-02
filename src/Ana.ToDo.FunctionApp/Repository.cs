@@ -11,10 +11,9 @@ namespace Cosmos.Test
     {
         
         SqlConnection sqlConnection;
-        public Repository()
+        public Repository(string connectionString)
         {
-            string connectionDetails = Environment.GetEnvironmentVariable("MyConnectionString");
-            sqlConnection = new SqlConnection(connectionDetails);
+            sqlConnection = new SqlConnection(connectionString);
         }
         public async Task<ToDoItem> SaveToDoItemToDB (ToDoItem toDoItem)
         {
@@ -67,9 +66,12 @@ namespace Cosmos.Test
             ToDoItem toDoItem = new ToDoItem();
             using (SqlDataReader reader = getItemByIdCommand.ExecuteReader())
             {
-                toDoItem.Id = (int)reader.GetValue("id");
-                toDoItem.Name = (string)reader.GetValue("name");
-                toDoItem.IsComplete = (bool)reader.GetValue("isComplete");
+                if(reader.Read())
+                {
+                    toDoItem.Id = (int)reader.GetValue("id");
+                    toDoItem.Name = (string)reader.GetValue("name");
+                    toDoItem.IsComplete = (bool)reader.GetValue("isComplete");
+                }
             }
 
             await sqlConnection.CloseAsync();

@@ -7,11 +7,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System;
 
 namespace Cosmos.Test
 {
-    public static class app_testAPI
+    public class app_testAPI
     {
+
+        static string connectionDetails;
+        static app_testAPI()
+        {
+            connectionDetails = Environment.GetEnvironmentVariable("MyConnectionString");
+        }
 
         [FunctionName("postToDoItem")]
         public static async Task<IActionResult> postToDoItem(
@@ -23,7 +30,7 @@ namespace Cosmos.Test
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(requestBody);
 
-            toDoItem = await new Repository().SaveToDoItemToDB(toDoItem);
+            toDoItem = await new Repository(connectionDetails).SaveToDoItemToDB(toDoItem);
 
             return new OkObjectResult(toDoItem);
         }
@@ -35,7 +42,7 @@ namespace Cosmos.Test
         {
             log.LogInformation("C# HTTP trigger function processed a getToDoItem request.");
 
-            List<ToDoItem> toDoList= await new Repository().GetAllToToItemsFromDB();
+            List<ToDoItem> toDoList= await new Repository(connectionDetails).GetAllToToItemsFromDB();
 
             return new OkObjectResult(toDoList);
         }

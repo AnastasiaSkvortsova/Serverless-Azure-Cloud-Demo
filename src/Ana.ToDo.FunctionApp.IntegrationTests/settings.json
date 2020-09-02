@@ -1,0 +1,3 @@
+{
+    "connectionString": "Server=tcp:todoappservernew.database.windows.net,1433;Initial Catalog=todobd;Persist Security Info=False;User ID=ana;Password=007Pus007;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+}
