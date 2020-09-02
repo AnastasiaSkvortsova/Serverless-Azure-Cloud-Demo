@@ -83,3 +83,11 @@ steps:
     deployType: 'SqlTask'
     SqlFile: 'src/Ana.ToDo.Database/toDoObjectsDB.sql'
     IpDetectionMethod: 'AutoDetect'
+
+- task: DotNetCoreCLI@2
+  displayName: Run Data Base Tests
+  inputs:
+    command: 'test'
+    projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
+    arguments: '--configuration release'
+    publishTestResults: true
