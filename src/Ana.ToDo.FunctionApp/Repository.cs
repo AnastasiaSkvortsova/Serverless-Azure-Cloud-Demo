@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System;
 
-namespace Cosmos.Test
+namespace Ana.ToDo.FunctionApp
 {
     public class Repository
     {

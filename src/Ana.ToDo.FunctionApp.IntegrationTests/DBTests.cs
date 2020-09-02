@@ -1,11 +1,11 @@
 using System.Data.SqlClient;
 using System;
-using Cosmos.Test;
+using Ana.ToDo.FunctionApp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 
-namespace Ana.Todo.FunctionApp.IntegrationTests.DataBaseTests
+namespace Ana.Todo.FunctionApp.IntegrationTests
 {
     [TestClass]
     public class DBTests
@@ -19,7 +19,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.DataBaseTests
         }
 
         [TestMethod]
-        public void postToDoItem_success() 
+        public void postToDoItemToDB_success() 
         {
             //arange
             var newToDo = new ToDoItem {
@@ -38,7 +38,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.DataBaseTests
         }
 
         [TestMethod]
-        public void getAllToDoItems_success() 
+        public void getAllToDoItemsFromDB_success() 
         {
             //act
             var listOfToDoItems = new Repository(connectionDetails).GetAllToToItemsFromDB().Result;

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Ana.ToDo.FunctionApp
+namespace Ana.ToDo.FunctionApp.IntegrationTests
 {
-    public class ToDoItem
+    public class InvalidToDoItem
     {
         public int Id {get; set;}
 

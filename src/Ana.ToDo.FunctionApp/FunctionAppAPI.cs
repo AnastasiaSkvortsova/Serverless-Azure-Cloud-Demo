@@ -9,13 +9,12 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
 
-namespace Cosmos.Test
+namespace Ana.ToDo.FunctionApp
 {
-    public class app_testAPI
+    public class FunctionAppAPI
     {
-
         static string connectionDetails;
-        static app_testAPI()
+        static FunctionAppAPI()
         {
             connectionDetails = Environment.GetEnvironmentVariable("MyConnectionString");
         }
@@ -32,7 +31,8 @@ namespace Cosmos.Test
 
             toDoItem = await new Repository(connectionDetails).SaveToDoItemToDB(toDoItem);
 
-            return new OkObjectResult(toDoItem);
+            return new CreatedResult("toDoItems", toDoItem);
+            
         }
 
         [FunctionName("getToDoItem")]
