@@ -59,6 +59,12 @@ stages:
       inputs:
         script: |
           echo files:
+          cd $(System.DefaultWorkingDirectory)
+          ls
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo files:
           cd $(Build.ArtifactStagingDirectory)
           ls
     - task: AzureCLI@2
