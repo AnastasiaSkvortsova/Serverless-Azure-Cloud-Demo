@@ -53,68 +53,10 @@ stages:
     steps:
     - download: current
       patterns: '**/*.zip'
-    - task: CmdLine@2
-      inputs:
-        script: |
-          echo files:
-          cd D:\a\1\drop
-          ls
-    - task: CmdLine@2
-      inputs:
-        script: |
-          echo files:
-          cd $(ReleaseArtifactDirectory)
-          ls
-    - task: CmdLine@2
-      inputs:
-        script: |
-          echo files:
-          cd D:\a\1/drop
-          ls
-
-    - task: AzureCLI@2
-      displayName: Create a Resource Group
-      inputs:
-        azureSubscription: 'ToDoConnection'
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az group create -l eastus -n rg-todo-app-api'
-
-    - task: AzureResourceManagerTemplateDeployment@3
-      displayName: Deploy Infrustructure from ARM Template 
-      inputs:
-        deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: 'ToDoConnection'
-        subscriptionId: '36d3687c-f042-4575-a046-b95c67efc8ca'
-        action: 'Create Or Update Resource Group'
-        resourceGroupName: 'rg-todo-app-api'
-        location: 'East US 2'
-        templateLocation: 'Linked artifact'
-        csmFile: 'ARM Templates/arm_rg.json'
-        csmParametersFile: 'ARM Templates/armparameters.json'
-        overrideParameters: '-myConnectionString "$(MyConnectionString)"'
-        deploymentMode: 'Incremental'
-
-    - task: AzureFunctionApp@1
-      inputs:
-        azureSubscription: 'ToDoConnection'
-        appType: 'functionApp'
-        appName: 'toDoFunctionAppAna'
-        package: '$(ReleaseArtifactDirectory)/Ana.ToDo.FunctionApp.zip'
-        deploymentMethod: 'auto'
-        
-    - task: SqlAzureDacpacDeployment@1
-      displayName: Deploy DB schema
-      inputs:
-        azureSubscription: 'ToDoConnection'
-        AuthenticationType: 'server'
-        ServerName: 'todoappservernew.database.windows.net'
-        DatabaseName: 'todobd'
-        SqlUsername: 'ana'
-        SqlPassword: '007Pus007'
-        deployType: 'SqlTask'
-        SqlFile: 'src/Ana.ToDo.Database/toDoObjectsDB.sql'
-        IpDetectionMethod: 'AutoDetect'
+      
+    - template: pipelines/deploymentTemplate.yml
+      parameters: 
+        Env: TEST
 
     - task: DotNetCoreCLI@2
       displayName: Run Data Base Tests
