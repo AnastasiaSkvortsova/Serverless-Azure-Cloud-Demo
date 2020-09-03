@@ -51,6 +51,11 @@ stages:
     variables:
         - group: Release
     steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
     - download: current
       patterns: '**/*.zip'
     - task: CmdLine@2
@@ -100,7 +105,7 @@ stages:
         azureSubscription: 'ToDoConnection'
         appType: 'functionApp'
         appName: 'toDoFunctionAppAna'
-        package: '$(Pipeline.Workspace)/Ana.ToDo.FunctionApp.zip'
+        package: '$(System.ArtifactsDirectory)/drop/Ana.ToDo.FunctionApp.zip'
         deploymentMethod: 'auto'
         
     - task: SqlAzureDacpacDeployment@1
