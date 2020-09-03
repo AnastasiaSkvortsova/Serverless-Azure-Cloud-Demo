@@ -51,6 +51,8 @@ stages:
     variables:
         - group: Release
     steps:
+    - download: current
+      artifact: drop
     - task: CmdLine@2
       inputs:
         script: |
