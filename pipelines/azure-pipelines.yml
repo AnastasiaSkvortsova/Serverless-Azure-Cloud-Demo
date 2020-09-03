@@ -54,7 +54,7 @@ stages:
     - download: current
       patterns: '**/*.zip'
       
-    - template: pipelines/deploymentTemplate.yml
+    - template: deploymentTemplate.yml
       parameters: 
         Env: TEST
 
