@@ -89,5 +89,11 @@ steps:
   inputs:
     command: 'test'
     projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
-    arguments: '--configuration release'
-    publishTestResults: true
+    arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.DBTests"'
+
+- task: DotNetCoreCLI@2
+  displayName: Run API Tests
+  inputs:
+    command: 'test'
+    projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
+    arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
