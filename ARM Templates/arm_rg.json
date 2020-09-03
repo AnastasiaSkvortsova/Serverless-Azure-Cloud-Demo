@@ -16,7 +16,7 @@
             "type": "String"
         },
         "databaseName": {
-            "defaultValue": "todobd",
+            "defaultValue": "sqldb-todoapp",
             "type": "String"
         },
         "tier": {
@@ -36,7 +36,6 @@
             "type": "Int"
         },
         "serverName": {
-            "defaultValue": "todoappservernew",
             "type": "String"
         },
         "sampleName": {
@@ -186,15 +185,13 @@
             "type": "String"
         },
         "appName": {
-            "defaultValue": "toDoFunctionAppAna",
+            "defaultValue": "toDoFunctionApplicationAna",
             "type": "String"
         },
         "hostingPlanName": {
-            "defaultValue": "toDoFunctionAppPlan",
             "type": "String"
         },
         "appInsightsName": {
-            "defaultValue": "toDoFunctionAppInsights",
             "type": "String"
         },
         "myConnectionString": {
@@ -546,7 +543,7 @@
             "properties": {
                 "displayName": "toDoFunctionApp API",
                 "apiRevision": "1",
-                "description": "Import from \"toDoFunctionAppAna\" Function App",
+                "description": "Import from \"toDoFunctionApplicationAna\" Function App",
                 "subscriptionRequired": true,
                 "protocols": [
                     "https"
@@ -558,19 +555,19 @@
         {
             "type": "Microsoft.ApiManagement/service/backends",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionappana')]",
+            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/toDoFunctionApplicationAna')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
             ],
             "properties": {
-                "description": "toDoFunctionAppAna",
-                "url": "https://todofunctionappana.azurewebsites.net/api",
+                "description": "toDoFunctionApplicationAna",
+                "url": "https://toDoFunctionApplicationAna.azurewebsites.net/api",
                 "protocol": "http",
-                "resourceId": "[concat('https://management.azure.com/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Web/sites/toDoFunctionAppAna')]",
+                "resourceId": "[concat('https://management.azure.com/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Web/sites/toDoFunctionApplicationAna')]",
                 "credentials": {
                     "header": {
                         "x-functions-key": [
-                            "{{todofunctionappana-key}}"
+                            "{{toDoFunctionApplicationAna-key}}"
                         ]
                     }
                 }
@@ -636,12 +633,12 @@
         {
             "type": "Microsoft.ApiManagement/service/properties",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionappana-key')]",
+            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/toDoFunctionApplicationAna-key')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
             ],
             "properties": {
-                "displayName": "todofunctionappana-key",
+                "displayName": "toDoFunctionApplicationAna-key",
                 "value": "w4q10QZaV/Otk+xPXr7Sxga+U4d8saV66vKOsz6vLCvFJWkWbSM5NQ==",
                 "tags": [
                     "key",
@@ -706,7 +703,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
             ],
             "properties": {
-                "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"todofunctionappana\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
+                "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"toDoFunctionApplicationAna\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
                 "format": "xml"
             }
         },
@@ -720,7 +717,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
             ],
             "properties": {
-                "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"todofunctionappana\" />\r\n    <rewrite-uri template=\"/postToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
+                "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"toDoFunctionApplicationAna\" />\r\n    <rewrite-uri template=\"/postToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
                 "format": "xml"
             }
         },

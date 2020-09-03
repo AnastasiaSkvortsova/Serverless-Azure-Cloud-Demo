@@ -10,7 +10,7 @@ steps:
     azureSubscription: 'ToDoConnection'
     scriptType: 'ps'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az group create -l eastus -n ${{parameters.Env}}-todo-app-api-rg'
+    inlineScript: 'az group create -l eastus -n rg-todoapp-${{parameters.Env}}'
 
 - task: AzureResourceManagerTemplateDeployment@3
   displayName: Deploy Infrustructure from ARM Template 
@@ -19,19 +19,19 @@ steps:
     azureResourceManagerConnection: 'ToDoConnection'
     subscriptionId: '36d3687c-f042-4575-a046-b95c67efc8ca'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: '${{parameters.Env}}-todo-app-api-rg'
+    resourceGroupName: 'rg-todoapp-${{parameters.Env}}'
     location: 'East US 2'
     templateLocation: 'Linked artifact'
     csmFile: 'ARM Templates/arm_rg.json'
     csmParametersFile: 'ARM Templates/armparameters.json'
-    overrideParameters: '-myConnectionString "$(MyConnectionString)" -resourceGroupName "${{parameters.Env}}-todo-app-api-rg" -subscriptionId "$(SubscriptionId)" -administratorLogin "$(AdministratorLogin)" -administratorLoginPassword "$(AdministratorPassword)"'
+    overrideParameters: '-myConnectionString "$(MyConnectionString)" -resourceGroupName "rg-todoapp-${{parameters.Env}}" -subscriptionId "$(SubscriptionId)" -administratorLogin "$(AdministratorLogin)" -administratorLoginPassword "$(AdministratorPassword)" -serverName "sql-todoapp-${{parameters.Env}}.database.windows.net" -hostingPlanName "plan-todoapp-${{parameters.Env}}" -appInsightsName "appi-todoapp-${{parameters.Env}}"'
     deploymentMode: 'Incremental'
 
 - task: AzureFunctionApp@1
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'functionApp'
-    appName: 'toDoFunctionAppAna'
+    appName: 'toDoFunctionApplicationAna'
     package: '$(ReleaseArtifactDirectory)/Ana.ToDo.FunctionApp.zip'
     deploymentMethod: 'auto'
         
@@ -40,10 +40,10 @@ steps:
   inputs:
     azureSubscription: 'ToDoConnection'
     AuthenticationType: 'server'
-    ServerName: 'todoappservernew.database.windows.net'
-    DatabaseName: 'todobd'
-    SqlUsername: 'ana'
-    SqlPassword: '007Pus007'
+    ServerName: 'sql-todoapp-${{parameters.Env}}.database.windows.net'
+    DatabaseName: 'sqldb-todoapp'
+    SqlUsername: '$(AdministratorLogin)'
+    SqlPassword: '$(AdministratorPassword)'
     deployType: 'SqlTask'
     SqlFile: 'src/Ana.ToDo.Database/toDoObjectsDB.sql'
     IpDetectionMethod: 'AutoDetect'

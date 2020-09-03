@@ -16,6 +16,15 @@
       },
       "administratorLoginPassword": {
         "value": "password"
-      }
+      },
+      "serverName": {
+        "value": "serverName"
+      },
+      "hostingPlanName": {
+        "value": "planName"
+      },
+      "appInsightsName": {
+        "value": "insights"
+    }
     }
   }
