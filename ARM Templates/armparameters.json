@@ -7,6 +7,15 @@
       },
       "resourceGroupName": {
         "value": "resourseGroupName"
+      },
+      "subscriptionId": {
+        "value": "subscriptionId"
+      },
+      "administratorLogin": {
+        "value": "login"
+      },
+      "administratorLoginPassword": {
+        "value": "password"
       }
     }
   }
