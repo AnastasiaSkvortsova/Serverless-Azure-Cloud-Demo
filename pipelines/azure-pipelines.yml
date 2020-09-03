@@ -100,7 +100,7 @@ stages:
         azureSubscription: 'ToDoConnection'
         appType: 'functionApp'
         appName: 'toDoFunctionAppAna'
-        package: 'D:\a\1\drop\Ana.ToDo.FunctionApp.zip'
+        package: '$(Build.ArtifactStagingDirectory)/Ana.ToDo.FunctionApp.zip'
         deploymentMethod: 'auto'
         
     - task: SqlAzureDacpacDeployment@1
