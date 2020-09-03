@@ -51,6 +51,18 @@ stages:
     variables:
         - group: Release
     steps:
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo files:
+          cd $(System.ArtifactsDirectory)
+          ls
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo files:
+          cd $(Build.ArtifactStagingDirectory)
+          ls
     - task: AzureCLI@2
       displayName: Create a Resource Group
       inputs:
