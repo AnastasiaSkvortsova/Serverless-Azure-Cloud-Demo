@@ -197,8 +197,8 @@
         "myConnectionString": {
             "type": "String"
         },
-        "service_ToDoAPIManagement_name": {
-            "defaultValue": "ToDoAPIManagement",
+        "service_ToDoAppAPIManagement_name": {
+            "defaultValue": "ToDoAppAPIManagement",
             "type": "String"
         }
     },
@@ -500,7 +500,7 @@
         {
             "type": "Microsoft.ApiManagement/service",
             "apiVersion": "2019-01-01",
-            "name": "[parameters('service_ToDoAPIManagement_name')]",
+            "name": "[parameters('service_ToDoAppAPIManagement_name')]",
             "location": "East US",
             "sku": {
                 "name": "Developer",
@@ -513,7 +513,7 @@
                 "hostnameConfigurations": [
                     {
                         "type": "Proxy",
-                        "hostName": "todoapimanagement.azure-api.net",
+                        "hostName": "ToDoAppAPIManagement.azure-api.net",
                         "negotiateClientCertificate": false,
                         "defaultSslBinding": true
                     }
@@ -536,9 +536,9 @@
         {
             "type": "Microsoft.ApiManagement/service/apis",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "toDoFunctionApp API",
@@ -555,9 +555,9 @@
         {
             "type": "Microsoft.ApiManagement/service/backends",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/toDoFunctionApplicationAna')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/toDoFunctionApplicationAna')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "description": "toDoFunctionApplicationAna",
@@ -576,9 +576,9 @@
         {
             "type": "Microsoft.ApiManagement/service/policies",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/policy')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/policy')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "value": "<!--\r\n    IMPORTANT:\r\n    - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\r\n    - Only the <forward-request> policy element can appear within the <backend> section element.\r\n    - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\r\n    - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\r\n    - To add a policy position the cursor at the desired insertion point and click on the round button associated with the policy.\r\n    - To remove a policy, delete the corresponding policy statement from the policy document.\r\n    - Policies are applied in the order of their appearance, from the top down.\r\n-->\r\n<policies>\r\n  <inbound />\r\n  <backend>\r\n    <forward-request />\r\n  </backend>\r\n  <outbound />\r\n</policies>",
@@ -588,9 +588,9 @@
         {
             "type": "Microsoft.ApiManagement/service/products",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/starter')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "Starter",
@@ -604,9 +604,9 @@
         {
             "type": "Microsoft.ApiManagement/service/products",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/unlimited')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/unlimited')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "Unlimited",
@@ -620,9 +620,9 @@
         {
             "type": "Microsoft.ApiManagement/service/properties",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/5f4973ce0ea117006068e04e')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/5f4973ce0ea117006068e04e')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "Logger-Credentials-5f4973ce0ea117006068e04f",
@@ -633,9 +633,9 @@
         {
             "type": "Microsoft.ApiManagement/service/properties",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/toDoFunctionApplicationAna-key')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/toDoFunctionApplicationAna-key')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "toDoFunctionApplicationAna-key",
@@ -651,10 +651,10 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api/get-gettodoitem')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/get-gettodoitem')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "toDoItems",
@@ -667,10 +667,10 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api/post-posttodoitem')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/post-posttodoitem')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "displayName": "toDoItems",
@@ -683,10 +683,10 @@
         {
             "type": "Microsoft.ApiManagement/service/products/policies",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/starter/policy')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/starter/policy')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAPIManagement_name'), 'starter')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/products', parameters('service_ToDoAppAPIManagement_name'), 'starter')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "value": "<!--\r\n            IMPORTANT:\r\n            - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\r\n            - Only the <forward-request> policy element can appear within the <backend> section element.\r\n            - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\r\n            - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\r\n            - To add a policy position the cursor at the desired insertion point and click on the round button associated with the policy.\r\n            - To remove a policy, delete the corresponding policy statement from the policy document.\r\n            - Position the <base> element within a section element to inherit all policies from the corresponding section element in the enclosing scope.\r\n            - Remove the <base> element to prevent inheriting policies from the corresponding section element in the enclosing scope.\r\n            - Policies are applied in the order of their appearance, from the top down.\r\n        -->\r\n<policies>\r\n  <inbound>\r\n    <rate-limit calls=\"5\" renewal-period=\"60\" />\r\n    <quota calls=\"100\" renewal-period=\"604800\" />\r\n    <base />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n</policies>",
@@ -696,11 +696,11 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations/policies",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api/get-gettodoitem/policy')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/get-gettodoitem/policy')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api', 'get-gettodoitem')]",
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api', 'get-gettodoitem')]",
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"toDoFunctionApplicationAna\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
@@ -710,11 +710,11 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations/policies",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAPIManagement_name'), '/todofunctionapp-api/post-posttodoitem/policy')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/post-posttodoitem/policy')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api', 'post-posttodoitem')]",
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAPIManagement_name'), 'todofunctionapp-api')]",
-                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAPIManagement_name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api', 'post-posttodoitem')]",
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
                 "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"toDoFunctionApplicationAna\" />\r\n    <rewrite-uri template=\"/postToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
