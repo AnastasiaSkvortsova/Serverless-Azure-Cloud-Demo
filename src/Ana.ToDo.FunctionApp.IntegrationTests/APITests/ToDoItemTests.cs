@@ -1,7 +1,5 @@
-using System.Data.SqlClient;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -87,6 +85,26 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
         }
 
         [TestMethod]
+        [Description("Positive; POST an ToDo json with Id (Id will be ignored)")]
+        public async Task postInvalidToDoJson_WithId_BadRequest() 
+        {
+            var toDo = new ToDoItem()
+            {
+                Id = 2,
+                Name = "feed the cat",
+                IsComplete = true
+            };
+            //convert toDo object into json to pass it as a parameter of POST method
+            var jsonItem = JsonConvert.SerializeObject(toDo);
+
+            //execute request and extract data from the response
+            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+
+            //assert that Response contains "Created" status code
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
         [Description("Negative; POST an Empty ToDo json")]
         public async Task postEmptyToDoJson_BadRequest() 
         {
@@ -101,5 +119,80 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
+        //VALIDATION API TESTS
+
+        [TestMethod]
+        [Description("Negative; POST an Invalid ToDo json (with Missing Required Parameter 'Name')")]
+        public async Task postInvalidToDoJson_MissingRequiredParameterName_BadRequest() 
+        {
+            var toDo = new ToDoItem()
+            {
+                IsComplete = true
+            };
+            //convert toDo object into json to pass it as a parameter of POST method
+            var jsonItem = JsonConvert.SerializeObject(toDo);
+
+            //execute request and extract data from the response
+            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+
+            //assert that Response contains "Created" status code
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        [Description("Negative; POST an Invalid ToDo json (with Missing Required Parameter 'IsComplete')")]
+        public async Task postInvalidToDoJson_MissingRequiredParameterIsComplete_BadRequest() 
+        {
+            var toDo = new ToDoItem()
+            {
+                Name = "wash the car"
+            };
+            //convert toDo object into json to pass it as a parameter of POST method
+            var jsonItem = JsonConvert.SerializeObject(toDo);
+
+            //execute request and extract data from the response
+            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+
+            //assert that Response contains "Created" status code
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        [Description("Negative; POST an Invalid ToDo json (with Short'Name')")]
+        public async Task postInvalidToDoJson_ShortName_BadRequest() 
+        {
+            var toDo = new ToDoItem()
+            {
+                Name = "n",
+                IsComplete = true
+            };
+            //convert toDo object into json to pass it as a parameter of POST method
+            var jsonItem = JsonConvert.SerializeObject(toDo);
+
+            //execute request and extract data from the response
+            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+
+            //assert that Response contains "Created" status code
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        [Description("Negative; POST an Invalid ToDo json (with Long'Name')")]
+        public async Task postInvalidToDoJson_LongName_BadRequest() 
+        {
+            var toDo = new ToDoItem()
+            {
+                Name = "M7NUfbHo7cD6w4J9sG0GzoLTS3HoV3VhJ02kjng6xz5dWADySEaGRAufHVAUf",
+                IsComplete = true
+            };
+            //convert toDo object into json to pass it as a parameter of POST method
+            var jsonItem = JsonConvert.SerializeObject(toDo);
+
+            //execute request and extract data from the response
+            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+
+            //assert that Response contains "Created" status code
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
     }
 }

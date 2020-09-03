@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
+using FluentValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ana.ToDo.FunctionApp
 {
@@ -25,14 +27,23 @@ namespace Ana.ToDo.FunctionApp
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a postToDoItem request.");
+            ToDoValidator validator = new ToDoValidator();
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(requestBody);
+            Console.WriteLine(toDoItem.ToString());
+            var result = validator.Validate(toDoItem);
+
+            if (!result.IsValid)
+            {
+                return new BadRequestObjectResult("Pass a Valid ToDo Model");
+            }
+            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.IsValid.ToString());
 
             toDoItem = await new Repository(connectionDetails).SaveToDoItemToDB(toDoItem);
 
             return new CreatedResult("toDoItems", toDoItem);
-            
         }
 
         [FunctionName("getToDoItem")]
