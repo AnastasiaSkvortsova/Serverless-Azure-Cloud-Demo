@@ -69,8 +69,9 @@ stages:
       inputs:
         script: |
           echo files:
-          cd $(Build.ArtifactStagingDirectory)
+          cd D:\a\1/drop
           ls
+
     - task: AzureCLI@2
       displayName: Create a Resource Group
       inputs:
