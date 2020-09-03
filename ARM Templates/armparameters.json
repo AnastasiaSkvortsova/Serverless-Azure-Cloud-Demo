@@ -4,6 +4,9 @@
     "parameters": {
       "myConnectionString": {
         "value": "connectionString"
+      },
+      "resourceGroupName": {
+        "value": "resourseGroupName"
       }
     }
   }

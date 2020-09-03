@@ -3,7 +3,6 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "resourceGroupName": {
-            "defaultValue": "rg-todo-app-api",
             "type": "String"
         },
         "administratorLogin": {
@@ -210,7 +209,7 @@
         }
     },
     "variables": {
-        "uniqueStorage": "[uniqueString('36d3687c-f042-4575-a046-b95c67efc8ca', 'rg-todo-app-api', 'East US 2')]",
+        "uniqueStorage": "[uniqueString('36d3687c-f042-4575-a046-b95c67efc8ca', parameters('resourceGroupName'), 'East US 2')]",
         "storageName": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
         "subnetPoliciesTemplateName": "[concat('SubnetPolicies-', if(parameters('enablePrivateEndpoint'), parameters('privateEndpointNestedTemplateId'), ''))]",
         "privateEndpointTemplateName": "[concat('PrivateEndpoint-', if(parameters('enablePrivateEndpoint'), parameters('privateEndpointNestedTemplateId'), ''))]",
@@ -570,7 +569,7 @@
                 "description": "toDoFunctionAppAna",
                 "url": "https://todofunctionappana.azurewebsites.net/api",
                 "protocol": "http",
-                "resourceId": "https://management.azure.com/subscriptions/36d3687c-f042-4575-a046-b95c67efc8ca/resourceGroups/rg-todo-app-api/providers/Microsoft.Web/sites/toDoFunctionAppAna",
+                "resourceId": "[concat('https://management.azure.com/subscriptions/36d3687c-f042-4575-a046-b95c67efc8ca/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Web/sites/toDoFunctionAppAna')]",
                 "credentials": {
                     "header": {
                         "x-functions-key": [
