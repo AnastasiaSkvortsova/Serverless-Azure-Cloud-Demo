@@ -109,11 +109,9 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
         public async Task postEmptyToDoJson_BadRequest() 
         {
             var str = "{}";
-            //convert toDo object into json to pass it as a parameter of POST method
-            var jsonItem = JsonConvert.SerializeObject(str);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("postToDoItem", new StringContent(str, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
