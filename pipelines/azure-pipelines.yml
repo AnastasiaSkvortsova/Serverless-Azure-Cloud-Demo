@@ -51,18 +51,13 @@ stages:
     variables:
         - group: Release
     steps:
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        artifactName: 'drop'
-        downloadPath: '$(System.ArtifactsDirectory)'
     - download: current
       patterns: '**/*.zip'
     - task: CmdLine@2
       inputs:
         script: |
           echo files:
-          cd $(System.ArtifactsDirectory)
+          cd D:\a\1\drop
           ls
     - task: CmdLine@2
       inputs:
