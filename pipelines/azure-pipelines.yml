@@ -52,7 +52,7 @@ stages:
         - group: Release
     steps:
     - download: current
-      artifact: drop
+      patterns: '**/*.zip'
     - task: CmdLine@2
       inputs:
         script: |
