@@ -20,7 +20,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
         {
             client = new HttpClient
             {
-                BaseAddress = new Uri("https://todofunctionappana.azurewebsites.net/api/")
+                BaseAddress = new Uri("https://apim-todoapp-test.azure-api.net/")
             };
             config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", config["Ocp-Apim-Subscription-Key"]);
@@ -32,7 +32,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
         public async Task getAllToDoItems_OK() 
         {
             //execute Http request and extract data from the response
-            var response = await client.GetAsync("getToDoItem");
+            var response = await client.GetAsync("toDoItems");
 
             //assert that response contains success status code, otherwise print status code
             Assert.IsTrue(response.IsSuccessStatusCode, $"Status: {response.StatusCode}");
@@ -70,7 +70,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var jsonItem = JsonConvert.SerializeObject(toDo);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -98,7 +98,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var jsonItem = JsonConvert.SerializeObject(toDo);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -111,7 +111,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var str = "{}";
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(str, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(str, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -131,7 +131,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var jsonItem = JsonConvert.SerializeObject(toDo);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -149,7 +149,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var jsonItem = JsonConvert.SerializeObject(toDo);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -168,7 +168,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var jsonItem = JsonConvert.SerializeObject(toDo);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -187,7 +187,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var jsonItem = JsonConvert.SerializeObject(toDo);
 
             //execute request and extract data from the response
-            var response = await client.PostAsync("postToDoItem", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
 
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);

@@ -1,4 +1,4 @@
 {
     "connectionString": "Server=tcp:sql-todoapp-test.database.windows.net,1433;Initial Catalog=sqldb-todoapp;Persist Security Info=False;User ID=ana;Password=007Pus007;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    "Ocp-Apim-Subscription-Key": "4ab6f745c7c14e36a51925a56f02ca74"
+    "Ocp-Apim-Subscription-Key": "e5e4ae0f059340228f3dcc424fc98517"
 }
