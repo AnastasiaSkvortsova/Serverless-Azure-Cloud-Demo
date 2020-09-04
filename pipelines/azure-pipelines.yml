@@ -56,7 +56,7 @@ stages:
       
     - template: deploymentTemplate.yml
       parameters: 
-        Env: TEST
+        Env: test
 
     - task: DotNetCoreCLI@2
       displayName: Run Data Base Tests
