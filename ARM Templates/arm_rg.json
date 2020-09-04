@@ -185,7 +185,6 @@
             "type": "String"
         },
         "appName": {
-            "defaultValue": "toDoFunctionApplicationAna",
             "type": "String"
         },
         "hostingPlanName": {
@@ -198,7 +197,6 @@
             "type": "String"
         },
         "service_ToDoAppAPIManagement_name": {
-            "defaultValue": "ToDoAppAPIManagement",
             "type": "String"
         }
     },
@@ -513,7 +511,7 @@
                 "hostnameConfigurations": [
                     {
                         "type": "Proxy",
-                        "hostName": "ToDoAppAPIManagement.azure-api.net",
+                        "hostName": "[concat(parameters('service_ToDoAppAPIManagement_name'), '.azure-api.net')]",
                         "negotiateClientCertificate": false,
                         "defaultSslBinding": true
                     }
@@ -543,7 +541,7 @@
             "properties": {
                 "displayName": "toDoFunctionApp API",
                 "apiRevision": "1",
-                "description": "Import from \"toDoFunctionApplicationAna\" Function App",
+                "description": "[concat('Import from \"', parameters('appName'), '\" Function App')]",
                 "subscriptionRequired": true,
                 "protocols": [
                     "https"
@@ -555,15 +553,15 @@
         {
             "type": "Microsoft.ApiManagement/service/backends",
             "apiVersion": "2019-01-01",
-            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/toDoFunctionApplicationAna')]",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/', parameters('appName'))]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
-                "description": "toDoFunctionApplicationAna",
-                "url": "https://toDoFunctionApplicationAna.azurewebsites.net/api",
+                "description": "ToDoFunctionApp",
+                "url": "[concat('https://', parameters('appName'), '.azurewebsites.net/api')]",
                 "protocol": "http",
-                "resourceId": "[concat('https://management.azure.com/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Web/sites/toDoFunctionApplicationAna')]",
+                "resourceId": "[concat('https://management.azure.com/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Web/sites/', parameters('appName'))]",
                 "credentials": {
                     "header": {
                         "x-functions-key": [
@@ -703,7 +701,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
-                "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"toDoFunctionApplicationAna\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
+                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
                 "format": "xml"
             }
         },
@@ -717,7 +715,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
-                "value": "<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"toDoFunctionApplicationAna\" />\r\n    <rewrite-uri template=\"/postToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
+                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/postToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
                 "format": "xml"
             }
         },

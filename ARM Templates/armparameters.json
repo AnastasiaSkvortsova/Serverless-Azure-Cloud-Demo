@@ -25,6 +25,12 @@
       },
       "appInsightsName": {
         "value": "insights"
-    }
+      },
+      "service_ToDoAppAPIManagement_name": {
+        "value": "APIManagement"
+      },
+      "appName": {
+        "value": "toDoApp"
+      }
     }
   }

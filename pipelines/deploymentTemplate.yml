@@ -24,14 +24,14 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'ARM Templates/arm_rg.json'
     csmParametersFile: 'ARM Templates/armparameters.json'
-    overrideParameters: '-myConnectionString "$(MyConnectionString)" -resourceGroupName "rg-todoapp-${{parameters.Env}}" -subscriptionId "$(SubscriptionId)" -administratorLogin "$(AdministratorLogin)" -administratorLoginPassword "$(AdministratorPassword)" -serverName "sql-todoapp-${{parameters.Env}}" -hostingPlanName "plan-todoapp-${{parameters.Env}}" -appInsightsName "appi-todoapp-${{parameters.Env}}"'
+    overrideParameters: '-myConnectionString "$(MyConnectionString)" -resourceGroupName "rg-todoapp-${{parameters.Env}}" -subscriptionId "$(SubscriptionId)" -administratorLogin "$(AdministratorLogin)" -administratorLoginPassword "$(AdministratorPassword)" -serverName "sql-todoapp-${{parameters.Env}}" -hostingPlanName "plan-todoapp-${{parameters.Env}}" -appInsightsName "appi-todoapp-${{parameters.Env}}" -service_ToDoAppAPIManagement_name "apim-todoapp-${{parameters.Env}}" -appName "func-todoapp-${{parameters.Env}}"'
     deploymentMode: 'Incremental'
 
 - task: AzureFunctionApp@1
   inputs:
     azureSubscription: 'ToDoConnection'
     appType: 'functionApp'
-    appName: 'toDoFunctionApplicationAna'
+    appName: 'func-todoapp-${{parameters.Env}}'
     package: '$(ReleaseArtifactDirectory)/Ana.ToDo.FunctionApp.zip'
     deploymentMethod: 'auto'
         
