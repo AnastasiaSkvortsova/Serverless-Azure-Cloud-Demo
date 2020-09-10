@@ -453,7 +453,8 @@
             "kind": "functionapp",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
+                "[resourceId('microsoft.insights/components/', parameters('appInsightsName'))]"
             ],
             "properties": {
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
@@ -493,7 +494,19 @@
                     }
                 ]
                 }
-            }
+            },
+             "resources": [
+                {
+                    "apiVersion": "2018-02-01",
+                    "name": "Microsoft.ApplicationInsights.AzureWebSites",
+                    "type": "siteextensions",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
+                    ],
+                    "properties": {
+                    }
+                }
+            ]
         },
         {
             "type": "Microsoft.ApiManagement/service",
