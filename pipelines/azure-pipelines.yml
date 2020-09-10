@@ -101,15 +101,19 @@ stages:
   displayName: 'Deploy to PROD environment'
   dependsOn: Stage
   jobs:
-  - job: deploy_to_prod
+  - deployment: deploy_to_prod
     pool:
       vmImage: 'windows-2019'
+    environment: ApprovalRequired
     variables:
         - group: Release
-    steps:
-    - download: current
-      patterns: '**/*.zip'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            patterns: '**/*.zip'
       
-    - template: deploymentTemplate.yml
-      parameters: 
-        Env: prod
+          - template: deploymentTemplate.yml
+            parameters: 
+              Env: prod
