@@ -31,15 +31,12 @@ namespace Ana.ToDo.FunctionApp
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(requestBody);
-            Console.WriteLine(toDoItem.ToString());
             var result = validator.Validate(toDoItem);
 
             if (!result.IsValid)
             {
                 return new BadRequestObjectResult("Pass a Valid ToDo Model");
             }
-            Console.WriteLine(result.ToString());
-            Console.WriteLine(result.IsValid.ToString());
 
             toDoItem = await new Repository(connectionDetails).SaveToDoItemToDB(toDoItem);
 
