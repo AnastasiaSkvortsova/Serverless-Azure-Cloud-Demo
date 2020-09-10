@@ -32,7 +32,7 @@ steps:
     azureSubscription: 'ToDoConnection'
     appType: 'functionApp'
     appName: 'func-todoapp-${{parameters.Env}}'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(ReleaseArtifactDirectory)/Ana.ToDo.FunctionApp.zip'
     deploymentMethod: 'zipDeploy'
         
 - task: SqlAzureDacpacDeployment@1
