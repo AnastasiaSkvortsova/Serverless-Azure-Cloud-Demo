@@ -97,6 +97,11 @@ stages:
       parameters: 
         Env: stage
 
+    - task: ManualValidation@0
+      inputs:
+        notifyUsers: 'Deployment approval'
+        instructions: 'Deploy tp PROD?'
+
 - stage: 'Production'
   displayName: 'Deploy to PROD environment'
   dependsOn: Stage
