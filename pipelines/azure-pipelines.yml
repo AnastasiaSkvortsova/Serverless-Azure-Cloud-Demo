@@ -71,3 +71,27 @@ stages:
         command: 'test'
         projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
         arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
+    - task: AzureCLI@2
+      displayName: Drop Test Environment 
+      inputs:
+        azureSubscription: 'ToDoConnection'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az group show -n rg-todoapp-${{parameters.Env}}'
+
+- stage: 'Stage'
+  displayName: 'Deploy to the STAGE environment'
+  dependsOn: Build
+  jobs:
+  - job: deploy_to_test
+    pool:
+      vmImage: 'windows-2019'
+    variables:
+        - group: Release
+    steps:
+    - download: current
+      patterns: '**/*.zip'
+      
+    - template: deploymentTemplate.yml
+      parameters: 
+        Env: stage
