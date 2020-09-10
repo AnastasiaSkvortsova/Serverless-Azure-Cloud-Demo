@@ -78,11 +78,11 @@ stages:
         azureSubscription: 'ToDoConnection'
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
-        inlineScript: 'az group show -n rg-todoapp-${{parameters.Env}}'
+        inlineScript: 'az group show -n rg-todoapp-test'
 
 - stage: 'Stage'
   displayName: 'Deploy to the STAGE environment'
-  dependsOn: Build
+  dependsOn: Test
   jobs:
   - job: deploy_to_stage
     pool:
