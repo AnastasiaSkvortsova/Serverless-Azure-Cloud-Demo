@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Azure.WebJobs;
 
-namespace Ana.ToDo.FunctionApp
+namespace Ana.ToDo.LoadTest
 {
     public class LoadTestAPI
     {
