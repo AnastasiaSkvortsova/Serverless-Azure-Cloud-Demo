@@ -101,12 +101,6 @@ stages:
   displayName: 'Deploy to PROD environment'
   dependsOn: Stage
   jobs:
-  - job: approval
-    pool: server
-    steps:
-    - task: ManualIntervention@8
-      inputs:
-        instructions: 'reject or resume'
   - job: deploy_to_prod
     dependsOn: approval
     pool:
