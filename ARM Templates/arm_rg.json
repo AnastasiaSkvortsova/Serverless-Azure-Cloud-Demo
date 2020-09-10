@@ -490,10 +490,6 @@
                     {
                     "name": "MyConnectionString",
                     "value": "[parameters('myConnectionString')]"
-                    },
-                    {
-                    "name": "FUNCTION_APP_EDIT_MODE",
-                    "value": "readwrite"
                     }
                 ]
                 }

@@ -1,4 +1,4 @@
-DROP TABLE toDoItems
+
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE name='toDoItems' and xtype='U') 
 CREATE TABLE toDoItems (
