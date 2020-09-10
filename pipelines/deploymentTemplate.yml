@@ -33,7 +33,7 @@ steps:
     appType: 'functionApp'
     appName: 'func-todoapp-${{parameters.Env}}'
     package: '$(ReleaseArtifactDirectory)/Ana.ToDo.FunctionApp.zip'
-    deploymentMethod: 'zipDeploy'
+    deploymentMethod: 'auto'
         
 - task: SqlAzureDacpacDeployment@1
   displayName: Deploy DB schema
