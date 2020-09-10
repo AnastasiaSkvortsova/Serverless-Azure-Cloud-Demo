@@ -99,7 +99,7 @@ stages:
 
 - stage: 'Production'
   displayName: 'Deploy to the PROD environment'
-  dependsOn: Prod
+  dependsOn: Stage
   jobs:
   - job: deploy_to_prod
     pool:
