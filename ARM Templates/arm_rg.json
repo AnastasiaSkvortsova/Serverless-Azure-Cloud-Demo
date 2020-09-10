@@ -473,6 +473,30 @@
                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
                     },
                     {
+                    "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+                    "value": "~2"
+                    },
+                    {
+                    "name": "XDT_MicrosoftApplicationInsights_Mode",
+                    "value": "recommended"
+                    },
+                    {
+                    "name": "InstrumentationEngine_EXTENSION_VERSION",
+                    "value": "~1"
+                    },
+                    {
+                    "name": "DiagnosticServices_EXTENSION_VERSION",
+                    "value": "~3"
+                    },
+                    {
+                    "name": "APPINSIGHTS_PROFILERFEATURE_VERSION",
+                    "value": "1.0.0"
+                    },
+                    {
+                    "name": "XDT_MicrosoftApplicationInsights_BaseExtensions",
+                    "value": "~1"
+                    },
+                    {
                     "name": "WEBSITE_CONTENTSHARE",
                     "value": "[toLower(parameters('appName'))]"
                     },
