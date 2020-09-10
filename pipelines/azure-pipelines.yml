@@ -71,6 +71,7 @@ stages:
         command: 'test'
         projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
         arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
+        
     - task: AzureCLI@2
       displayName: Drop Test Environment 
       inputs:
@@ -83,7 +84,7 @@ stages:
   displayName: 'Deploy to the STAGE environment'
   dependsOn: Build
   jobs:
-  - job: deploy_to_test
+  - job: deploy_to_stage
     pool:
       vmImage: 'windows-2019'
     variables:
