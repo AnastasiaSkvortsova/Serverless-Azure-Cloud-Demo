@@ -102,7 +102,6 @@ stages:
   dependsOn: Stage
   jobs:
   - job: deploy_to_prod
-    dependsOn: approval
     pool:
       vmImage: 'windows-2019'
     variables:
