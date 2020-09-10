@@ -15,4 +15,7 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ana.ToDo.FunctionApp\Ana.ToDo.FunctionApp.csproj" />
+  </ItemGroup>
 </Project>
