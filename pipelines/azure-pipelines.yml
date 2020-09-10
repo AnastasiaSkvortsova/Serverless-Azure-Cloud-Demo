@@ -42,7 +42,7 @@ stages:
       artifact: drop
 
 - stage: 'Test'
-  displayName: 'Deploy to the TEST environment'
+  displayName: 'Deploy to TEST environment'
   dependsOn: Build
   jobs:
   - job: deploy_to_test
@@ -81,7 +81,7 @@ stages:
         inlineScript: 'az group show -n rg-todoapp-test'
 
 - stage: 'Stage'
-  displayName: 'Deploy to the STAGE environment'
+  displayName: 'Deploy to STAGE environment'
   dependsOn: Test
   jobs:
   - job: deploy_to_stage
@@ -96,3 +96,21 @@ stages:
     - template: deploymentTemplate.yml
       parameters: 
         Env: stage
+
+- stage: 'Production'
+  displayName: 'Deploy to PROD environment'
+  dependsOn: Stage
+  jobs:
+  - job: deploy_to_prod
+    dependsOn: approval
+    pool:
+      vmImage: 'windows-2019'
+    variables:
+        - group: Release
+    steps:
+    - download: current
+      patterns: '**/*.zip'
+      
+    - template: deploymentTemplate.yml
+      parameters: 
+        Env: prod
