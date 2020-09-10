@@ -96,3 +96,20 @@ stages:
     - template: deploymentTemplate.yml
       parameters: 
         Env: stage
+
+- stage: 'Production'
+  displayName: 'Deploy to the PROD environment'
+  dependsOn: Prod
+  jobs:
+  - job: deploy_to_prod
+    pool:
+      vmImage: 'windows-2019'
+    variables:
+        - group: Release
+    steps:
+    - download: current
+      patterns: '**/*.zip'
+      
+    - template: deploymentTemplate.yml
+      parameters: 
+        Env: prod
