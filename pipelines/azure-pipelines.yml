@@ -82,7 +82,7 @@ stages:
 
 - stage: 'Stage'
   displayName: 'Deploy to the STAGE environment'
-  dependsOn: Build
+  dependsOn: Test
   jobs:
   - job: deploy_to_stage
     pool:
