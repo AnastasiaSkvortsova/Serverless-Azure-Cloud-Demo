@@ -113,8 +113,11 @@ stages:
           steps:
           - download: current
             patterns: '**/*.zip'
-            artifact: deploymentTemplate.yml
           - script: ls
+          - script: |
+              echo files:
+              cd $(System.ArtifactsDirectory)
+              ls
           - template: deploymentTemplate.yml
             parameters: 
               Env: prod
