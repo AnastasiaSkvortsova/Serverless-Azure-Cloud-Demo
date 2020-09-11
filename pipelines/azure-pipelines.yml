@@ -113,7 +113,7 @@ stages:
           steps:
           - download: current
             patterns: '**/*.zip'
-      
+            
           - template: deploymentTemplate.yml
             parameters: 
               Env: prod
