@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Ana.ToDo.FunctionApp;
 using System.Net.Http;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Ana.ToDo.LoadTest
 {
@@ -12,7 +13,7 @@ namespace Ana.ToDo.LoadTest
     {
         private static HttpClient client;
 
-        public LoadTestAPI()
+        static LoadTestAPI()
         {
             client = new HttpClient
             {
@@ -23,8 +24,9 @@ namespace Ana.ToDo.LoadTest
         }
         
         [FunctionName("PostMultipleItems"), NoAutomaticTrigger]
-        public static async Task PostMultipleItems(int number)
+        public static async Task PostMultipleItems(string input, ILogger log)
         {
+            log.LogInformation("C# Manual trigger function processed a PostMultipleItems request.");
             var toDoItem = new ToDoItem()
             {
                 Name = "new errand",
@@ -33,7 +35,7 @@ namespace Ana.ToDo.LoadTest
 
             var toDo = JsonConvert.SerializeObject(toDoItem);
 
-            for (int i=0; i<=number; i++)
+            for (int i=0; i<=50; i++)
             {
                 await client.PostAsync("toDoItems", new StringContent(toDo, Encoding.UTF8, "application/json"));
             }
