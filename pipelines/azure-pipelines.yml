@@ -114,6 +114,6 @@ stages:
           - download: current
             patterns: '**/*.zip'
       
-          - template: pipelines/deploymentTemplate.yml
+          - template: deploymentTemplate.yml@templates
             parameters: 
               Env: prod
