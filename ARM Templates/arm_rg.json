@@ -20,7 +20,7 @@
             "type": "String"
         },
         "tier": {
-            "defaultValue": "Standard",
+            "defaultValue": "Basic",
             "type": "String"
         },
         "skuName": {
