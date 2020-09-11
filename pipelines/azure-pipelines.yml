@@ -113,7 +113,8 @@ stages:
           steps:
           - download: current
             patterns: '**/*.zip'
-            
+            artifact: deploymentTemplate.yml
+          - script: ls
           - template: deploymentTemplate.yml
             parameters: 
               Env: prod
