@@ -1,17 +1,17 @@
 using System;
-using Microsoft.Extensions.Configuration;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Text;
 using Microsoft.Azure.WebJobs;
+using Newtonsoft.Json;
 using Ana.ToDo.FunctionApp;
+using System.Net.Http;
+using System.Text;
 
 namespace Ana.ToDo.LoadTest
 {
     public class LoadTestAPI
     {
-        private HttpClient client;
+        private static HttpClient client;
+
         public LoadTestAPI()
         {
             client = new HttpClient
@@ -21,10 +21,9 @@ namespace Ana.ToDo.LoadTest
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Environment.GetEnvironmentVariable("Ocp-Apim-Subscription-Key"));
             client.DefaultRequestHeaders.Add("Ocp-Apim-Trace", "true");
         }
-
-        [FunctionName("postMutipleToDoItems")]
         
-        public async Task postMultipleItems(int number)
+        [FunctionName("PostMultipleItems"), NoAutomaticTrigger]
+        public static async Task PostMultipleItems(int number)
         {
             var toDoItem = new ToDoItem()
             {
