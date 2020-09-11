@@ -538,7 +538,8 @@
             "name": "[parameters('service_ToDoAppAPIManagement_name')]",
             "location": "East US",
             "sku": {
-                "name": "Consumption"
+                "name": "Consumption",
+                "capacity": 0
             },
             "properties": {
                 "publisherEmail": "maksimSkvortsov@gmail.com",
