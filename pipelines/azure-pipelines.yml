@@ -66,7 +66,12 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                cd 'D:\a\1\s\pipelines'
+                cd $(Dir)
+                ls
+          - task: CmdLine@2
+            inputs:
+              script: |
+                cd '$(Dir)/pipelines'
                 ls
           - task: CmdLine@2
             inputs:
