@@ -59,24 +59,7 @@ stages:
             patterns: '**/*.zip'
           - task: CmdLine@2
             inputs:
-              script: |
-                cd $(ReleaseArtifactDirectory)
-                ls
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd $(Agent.BuildDirectory)
-                ls
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd '$(Agent.BuildDirectory)/s'
-                ls
-          - task: CmdLine@2
-            inputs:
-              script: |
-                cd '$(Agent.BuildDirectory)/s/pipelines'
-                ls
+              script: ls
           - template: deploymentTemplate.yml
             parameters: 
               Env: prod
