@@ -58,15 +58,13 @@ stages:
           - download: current
             patterns: '**/*.zip'
           - script: ls
-          - script: |
+          - script: 
               cd $(System.ArtifactsDirectory)
               ls
-          - script: |
-              echo files:
+          - script: 
               cd $(ReleaseArtifactDirectory)
               ls
-          - script: |
-              echo files:
+          - script: 
               cd $(Build.SourcesDirectory)
               ls
           - template: deploymentTemplate.yml
