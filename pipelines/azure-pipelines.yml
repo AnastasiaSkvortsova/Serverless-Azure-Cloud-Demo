@@ -57,11 +57,10 @@ stages:
           steps:
           - download: current
             patterns: '**/*.zip'
-          - script: ls
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(Build.ArtifactStagingDirectory)
+                cd $(ReleaseArtifactDirectory)
                 ls
           - task: CmdLine@2
             inputs:
