@@ -59,7 +59,9 @@ stages:
             patterns: '**/*.zip'
           - task: CmdLine@2
             inputs:
-              script: ls
+              script: |
+                cd $(System.DefaultWorkingDirectory)
+                ls
           - template: deploymentTemplate.yml
             parameters: 
               Env: prod
