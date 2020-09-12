@@ -50,12 +50,6 @@ stages:
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: 'src/Ana.ToDo.FunctionApp.IntegrationTests'
-        Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
@@ -79,27 +73,35 @@ stages:
             parameters: 
               Env: test
 
-          - task: DotNetCoreCLI@2
-            displayName: Run Data Base Tests
-            inputs:
-              command: 'test'
-              projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
-              arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.DBTests"'
-
-          - task: DotNetCoreCLI@2
-            displayName: Run API Tests
-            inputs:
-              command: 'test'
-              projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
-              arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
-          
-          - task: AzureCLI@2
-            displayName: Drop Test Environment 
-            inputs:
-              azureSubscription: 'ToDoConnection'
-              scriptType: 'ps'
-              scriptLocation: 'inlineScript'
-              inlineScript: 'az group show -n rg-todoapp-test'
+  - job: data_base_tests
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Run Data Base Tests
+      inputs:
+        command: 'test'
+        projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
+        arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.DBTests"'
+  
+  - job: integration_tests
+  pool:
+    vmImage: 'windows-2019'
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Run API Tests
+      inputs:
+        command: 'test'
+        projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
+        arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
+    
+    - task: AzureCLI@2
+      displayName: Drop Test Environment 
+      inputs:
+        azureSubscription: 'ToDoConnection'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az group show -n rg-todoapp-test'
 
 - stage: 'Stage'
   displayName: 'Deploy to STAGE environment'
