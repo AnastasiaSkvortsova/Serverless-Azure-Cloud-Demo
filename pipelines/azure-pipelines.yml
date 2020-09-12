@@ -71,14 +71,8 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                echo Pipeline.Workspace
-                cd $(Pipeline.Workspace)
-                ls
-          - task: CmdLine@2
-            inputs:
-              script: |
                 echo Build.ArtifactStagingDirectory
-                cd $(Build.ArtifactStagingDirectory)
+                cd '$(Build.ArtifactStagingDirectory)/drop'
                 ls
           - task: AzureResourceManagerTemplateDeployment@3
             displayName: Deploy Infrustructure from ARM Template 
@@ -90,7 +84,7 @@ stages:
               resourceGroupName: 'rg-todoapp-prod'
               location: 'East US 2'
               templateLocation: 'Linked artifact'
-              csmFile: '$(System.DefaultWorkingDirectory)/ARM Templates/arm_rg.json'
-              csmParametersFile: '$(System.DefaultWorkingDirectory)/ARM Templates/armparameters.json'
+              csmFile: '$(System.DefaultWorkingDirectory)/drop/arm_rg.json'
+              csmParametersFile: '$(System.DefaultWorkingDirectory)/drop/armparameters.json'
               overrideParameters: '-myConnectionString "$(MyConnectionString)" -resourceGroupName "rg-todoapp-prod" -subscriptionId "$(SubscriptionId)" -administratorLogin "$(AdministratorLogin)" -administratorLoginPassword "$(AdministratorPassword)" -serverName "sql-todoapp-prod" -hostingPlanName "plan-todoapp-prod" -appInsightsName "appi-todoapp-prod" -service_ToDoAppAPIManagement_name "apim-todoapp-prod" -appName "func-todoapp-prod"'
               deploymentMode: 'Incremental'
