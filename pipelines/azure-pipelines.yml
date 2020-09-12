@@ -43,12 +43,13 @@ stages:
         SourceFolder: 'ARM Templates'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    
     - task: CopyFiles@2
       inputs:
-        SourceFolder: 'ARM Templates'
+        SourceFolder: 'src/Ana.ToDo.Database'
         Contents: '**'
-        TargetFolder: '$(Pipeline.Workspace)'
-    
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
