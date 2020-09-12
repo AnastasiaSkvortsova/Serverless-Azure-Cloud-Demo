@@ -49,6 +49,12 @@ stages:
         SourceFolder: 'src/Ana.ToDo.Database'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'src/Ana.ToDo.FunctionApp.IntegrationTests'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
