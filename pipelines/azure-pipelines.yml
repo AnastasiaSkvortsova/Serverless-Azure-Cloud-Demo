@@ -61,6 +61,21 @@ stages:
           - script: 
               cd $(System.ArtifactsDirectory)
               ls
+          - task: CmdLine@2
+            inputs:
+              script: |
+                cd $(System.ArtifactsDirectory)
+                ls
+          - task: CmdLine@2
+            inputs:
+              script: |
+                cd $(ReleaseArtifactDirectory)
+                ls
+          - task: CmdLine@2
+            inputs:
+              script: |
+                cd $(Build.SourcesDirectory)
+                ls
           - script: 
               cd $(ReleaseArtifactDirectory)
               ls
