@@ -71,12 +71,12 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(System.ArtifactsDirectory)
+                cd '$(Agent.BuildDirectory)/s'
                 ls
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(Build.SourcesDirectory)
+                cd '$(Agent.BuildDirectory)/s/pipelines'
                 ls
           - template: deploymentTemplate.yml
             parameters: 
