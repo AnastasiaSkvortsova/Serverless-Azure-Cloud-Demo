@@ -38,8 +38,6 @@ stages:
         arguments: '--no-build --configuration release --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
 
-    - publish: '$(Build.ArtifactStagingDirectory)'
-      artifact: drop
     - task: CopyFiles@2
       inputs:
         SourceFolder: 'ARM Templates'
@@ -51,6 +49,8 @@ stages:
         Contents: '**'
         TargetFolder: '$(Pipeline.Workspace)'
     
+    - publish: '$(Build.ArtifactStagingDirectory)'
+      artifact: drop
 
 - stage: 'Production'
   displayName: 'Deploy to PROD environment'
@@ -67,7 +67,7 @@ stages:
         deploy:
           steps:
           - download: current
-            patterns: '**/*.zip, **/*.json'
+            patterns: '**'
           - task: CmdLine@2
             inputs:
               script: |
