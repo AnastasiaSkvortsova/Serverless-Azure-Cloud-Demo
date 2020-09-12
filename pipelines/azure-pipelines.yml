@@ -85,8 +85,6 @@ stages:
         arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.DBTests"'
   
   - job: integration_tests
-  pool:
-    vmImage: 'windows-2019'
     steps:
     - task: DotNetCoreCLI@2
       displayName: Run API Tests
