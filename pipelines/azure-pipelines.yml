@@ -58,9 +58,6 @@ stages:
           - download: current
             patterns: '**/*.zip'
           - script: ls
-          - script: 
-              cd $(System.ArtifactsDirectory)
-              ls
           - task: CmdLine@2
             inputs:
               script: |
