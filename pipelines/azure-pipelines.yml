@@ -49,18 +49,86 @@ stages:
         SourceFolder: 'src/Ana.ToDo.Database'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
+    
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
+- stage: 'Test'
+  displayName: 'Deploy to TEST environment'
+  dependsOn: Build
+  jobs:
+  - deployment: deploy_to_test
+    pool:
+      vmImage: 'windows-2019'
+    environment: ApprovalNotRequired
+    variables:
+        - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            patterns: '**'
+          - template: deploymentTemplate.yml
+            parameters: 
+              Env: test
+
+  - job: data_base_tests
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Run Data Base Tests
+      inputs:
+        command: 'test'
+        projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
+        arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.DBTests"'
+  
+  - job: integration_tests
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Run API Tests
+      inputs:
+        command: 'test'
+        projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
+        arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
+    
+    - task: AzureCLI@2
+      displayName: Drop Test Environment 
+      inputs:
+        azureSubscription: 'ToDoConnection'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az group show -n rg-todoapp-test'
+
+- stage: 'Stage'
+  displayName: 'Deploy to STAGE environment'
+  dependsOn: Test
+  jobs:
+  - deployment: deploy_to_stage
+    pool:
+      vmImage: 'windows-2019'
+    environment: ApprovalNotRequired
+    variables:
+        - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            patterns: '**'
+          - template: deploymentTemplate.yml
+            parameters: 
+              Env: stage
+
 - stage: 'Production'
   displayName: 'Deploy to PROD environment'
-  dependsOn: Build
+  dependsOn: Stage
   jobs:
   - deployment: deploy_to_prod
     pool:
       vmImage: 'windows-2019'
-    environment: Test
+    environment: ApprovarReqired
     variables:
         - group: Release
     strategy:
