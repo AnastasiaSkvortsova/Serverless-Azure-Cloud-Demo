@@ -25,7 +25,7 @@ namespace Ana.ToDo.LoadTest
         }
         
         [FunctionName("PostMultipleItems"), NoAutomaticTrigger]
-        public static async Task<IActionResult> PostMultipleItems(string numberOfRequests, ILogger log)
+        public static async Task PostMultipleItems(string numberOfRequests, ILogger log)
         {
             log.LogInformation("C# Manual trigger function processed a PostMultipleItems request.");
             var toDoItem = new ToDoItem()
@@ -40,16 +40,17 @@ namespace Ana.ToDo.LoadTest
             if(!int.TryParse(numberOfRequests, out number)) 
             {
                 log.LogInformation("Number format is invalid");
-                return new BadRequestObjectResult("Number format is invalid");
+                return;
             }
             
+            var tasks = new Task[number];
             for (int i=0; i<=number; i++)
             {
-                await client.PostAsync("toDoItems", new StringContent(toDo, Encoding.UTF8, "application/json"));
+                tasks[i] = client.PostAsync("toDoItems", new StringContent(toDo, Encoding.UTF8, "application/json"));
             }
+            await Task.WhenAll(tasks);
 
             log.LogInformation("ToDo Items were created");
-            return new CreatedResult("ToDo Items were created", new {});
         }
     }
 }

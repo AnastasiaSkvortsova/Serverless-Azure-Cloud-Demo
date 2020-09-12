@@ -45,5 +45,5 @@ steps:
     SqlUsername: '$(AdministratorLogin)'
     SqlPassword: '$(AdministratorPassword)'
     deployType: 'SqlTask'
-    SqlFile: 'src/Ana.ToDo.Database/toDoObjectsDB.sql'
+    SqlFile: '$(ReleaseArtifactDirectory)/toDoObjectsDB.sql'
     IpDetectionMethod: 'AutoDetect'
