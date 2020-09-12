@@ -61,7 +61,7 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                cd 'D:\a\1\s'
+                cd $(Build.ArtifactStagingDirectory)
                 ls
           - task: CmdLine@2
             inputs:
