@@ -67,7 +67,7 @@ stages:
         deploy:
           steps:
           - download: current
-            patterns: '*(**/*.zip|**/*.json)'
+            patterns: '**/*.zip, **/*.json'
           - task: CmdLine@2
             inputs:
               script: |
