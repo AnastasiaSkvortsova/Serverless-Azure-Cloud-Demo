@@ -60,12 +60,12 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(System.ArtifactsDirectory)
+                cd 'D:\a\1\s'
                 ls
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(ReleaseArtifactDirectory)
+                cd 'D:\a\1\s\pipelines'
                 ls
           - task: CmdLine@2
             inputs:
