@@ -43,6 +43,7 @@ stages:
 
 - stage: 'Production'
   displayName: 'Deploy to PROD environment'
+  dependsOn: Build
   jobs:
   - deployment: deploy_to_prod
     pool:
