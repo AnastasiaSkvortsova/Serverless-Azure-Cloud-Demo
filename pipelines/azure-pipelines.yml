@@ -48,7 +48,6 @@ stages:
   - deployment: deploy_to_prod
     pool:
       vmImage: 'windows-2019'
-    environment: ApprovalRequired
     variables:
         - group: Release
     strategy:
