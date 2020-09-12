@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Ana.ToDo.LoadTest
 {
@@ -25,7 +26,7 @@ namespace Ana.ToDo.LoadTest
         }
         
         [FunctionName("PostMultipleItems"), NoAutomaticTrigger]
-        public static async Task PostMultipleItems(string numberOfRequests, ILogger log)
+        public static async Task PostMultipleItems(string input, ILogger log)
         {
             log.LogInformation("C# Manual trigger function processed a PostMultipleItems request.");
             var toDoItem = new ToDoItem()
@@ -33,18 +34,20 @@ namespace Ana.ToDo.LoadTest
                 Name = "new errand",
                 IsComplete = false
             };
-
             var toDo = JsonConvert.SerializeObject(toDoItem);
+
+            log.LogInformation(input);
+            //var parsedNumber = JObject.Parse(numberOfRequests)["numberOfRequests"].ToObject<string>();
             int number;
 
-            if(!int.TryParse(numberOfRequests, out number)) 
+            if(!int.TryParse(input, out number)) 
             {
-                log.LogInformation("Number format is invalid");
+                log.LogError($"Number format is invalid. Input: {input}");
                 return;
             }
             
             var tasks = new Task[number];
-            for (int i=0; i<=number; i++)
+            for (int i=0; i<number; i++)
             {
                 tasks[i] = client.PostAsync("toDoItems", new StringContent(toDo, Encoding.UTF8, "application/json"));
             }
