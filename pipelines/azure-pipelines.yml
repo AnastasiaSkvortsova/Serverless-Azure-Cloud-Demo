@@ -40,6 +40,17 @@ stages:
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'ARM Templates'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'ARM Templates'
+        Contents: '**'
+        TargetFolder: '$(Pipeline.Workspace)'
+    
 
 - stage: 'Production'
   displayName: 'Deploy to PROD environment'
@@ -66,8 +77,8 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                echo Build.SourcesDirectory
-                cd $(Build.SourcesDirectory)
+                echo Build.ArtifactStagingDirectory
+                cd $(Build.ArtifactStagingDirectory)
                 ls
           - task: AzureResourceManagerTemplateDeployment@3
             displayName: Deploy Infrustructure from ARM Template 
