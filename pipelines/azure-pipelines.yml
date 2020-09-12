@@ -68,7 +68,7 @@ stages:
         deploy:
           steps:
           - download: current
-            patterns: '**/*.zip'
+            patterns: '**'
           - template: deploymentTemplate.yml
             parameters: 
               Env: test
@@ -110,7 +110,7 @@ stages:
         deploy:
           steps:
           - download: current
-            patterns: '**/*.zip'
+            patterns: '**'
           - template: deploymentTemplate.yml
             parameters: 
               Env: stage
