@@ -60,7 +60,14 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                cd $(System.DefaultWorkingDirectory)
+                echo Pipeline.Workspace
+                cd $(Pipeline.Workspace)
+                ls
+          - task: CmdLine@2
+            inputs:
+              script: |
+                echo Build.SourcesDirectory
+                cd $(Build.SourcesDirectory)
                 ls
           - task: AzureResourceManagerTemplateDeployment@3
             displayName: Deploy Infrustructure from ARM Template 
