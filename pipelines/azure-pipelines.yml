@@ -68,23 +68,6 @@ stages:
           steps:
           - download: current
             patterns: '**'
-          - task: CmdLine@2
-            inputs:
-              script: |
-                echo Build.ArtifactStagingDirectory
-                cd '$(Build.ArtifactStagingDirectory)/drop'
-                ls
-          - task: AzureResourceManagerTemplateDeployment@3
-            displayName: Deploy Infrustructure from ARM Template 
-            inputs:
-              deploymentScope: 'Resource Group'
-              azureResourceManagerConnection: 'ToDoConnection'
-              subscriptionId: '36d3687c-f042-4575-a046-b95c67efc8ca'
-              action: 'Create Or Update Resource Group'
-              resourceGroupName: 'rg-todoapp-prod'
-              location: 'East US 2'
-              templateLocation: 'Linked artifact'
-              csmFile: '$(ReleaseArtifactDirectory)/arm_rg.json'
-              csmParametersFile: '$(ReleaseArtifactDirectory)/armparameters.json'
-              overrideParameters: '-myConnectionString "$(MyConnectionString)" -resourceGroupName "rg-todoapp-prod" -subscriptionId "$(SubscriptionId)" -administratorLogin "$(AdministratorLogin)" -administratorLoginPassword "$(AdministratorPassword)" -serverName "sql-todoapp-prod" -hostingPlanName "plan-todoapp-prod" -appInsightsName "appi-todoapp-prod" -service_ToDoAppAPIManagement_name "apim-todoapp-prod" -appName "func-todoapp-prod"'
-              deploymentMode: 'Incremental'
+          - template: deploymentTemplate.yml
+            parameters: 
+              Env: prod
