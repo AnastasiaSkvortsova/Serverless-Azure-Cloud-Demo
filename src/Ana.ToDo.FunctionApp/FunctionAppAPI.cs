@@ -45,14 +45,23 @@ namespace Ana.ToDo.FunctionApp
 
         [FunctionName("getToDoItem")]
         public static async Task<IActionResult> getToDoItem(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getToDoItem/{id?}")] HttpRequest req, int? id,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a getToDoItem request.");
 
-            List<ToDoItem> toDoList= await new Repository(connectionDetails).GetAllToToItemsFromDB();
+            if (id == null) 
+            {
+                List<ToDoItem> toDoList= await new Repository(connectionDetails).GetAllToToItemsFromDB();
 
-            return new OkObjectResult(toDoList);
+                return new OkObjectResult(toDoList);
+            } else
+            {
+                ToDoItem toDo = await new Repository(connectionDetails).GetItemByIdFromDB(id.Value);
+
+                return new OkObjectResult(toDo);
+            }
+
         }
 
     }
