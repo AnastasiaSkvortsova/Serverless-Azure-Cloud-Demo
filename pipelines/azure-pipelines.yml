@@ -112,7 +112,7 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'dependency-check\*junit.xml'
+        testResultsFiles: 'dependency-check-junit.xml'
         searchFolder: '$(Build.ArtifactStagingDirectory)'
         testRunTitle: 'OWASP Dependency Check'
 
