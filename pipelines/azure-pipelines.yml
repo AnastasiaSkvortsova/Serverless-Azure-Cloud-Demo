@@ -121,12 +121,12 @@ stages:
     - task: CmdLine@2
       inputs:
         script: |
-          cd $(Build.StagingDirectory)
+          cd '$(Common.TestResultsDirectory)/Dependency Check'
           ls
     - task: CmdLine@2
       inputs:
         script: |
-          cd $(Dir)
+          cd $(Common.TestResultsDirectory)
           ls
 
     - task: PublishTestResults@2
