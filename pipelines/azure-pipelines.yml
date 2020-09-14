@@ -97,6 +97,25 @@ stages:
         projects: '**/Ana.ToDo.FunctionApp.IntegrationTests.csproj'
         arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.APITests.ToDoItemTests"'
 
+  - job: security_tests
+    dependsOn: deploy_to_test
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: dependency-check-build-task@5
+      inputs:
+        projectName: 'Ana.ToDo.FunctionApp'
+        scanPath: '**/Ana.ToDo.FunctionApp.csproj'
+        format: 'ALL'
+        failOnCVSS: '1'
+      
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'dependency-check\*junit.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
+        testRunTitle: 'OWASP Dependency Check'
+
 - stage: 'Stage'
   displayName: 'Deploy to STAGE environment'
   dependsOn: Test
