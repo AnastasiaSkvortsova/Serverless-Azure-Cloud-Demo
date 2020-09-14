@@ -773,7 +773,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
-                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
+                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/getToDoItem/{id}\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
                 "format": "xml"
             }
         },
