@@ -113,7 +113,7 @@ stages:
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: 'dependency-check-junit.xml'
-        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        searchFolder: '$(Build.ArtifactStagingDirectory)/Dependency Check'
         testRunTitle: 'OWASP Dependency Check'
 
 - stage: 'Stage'
