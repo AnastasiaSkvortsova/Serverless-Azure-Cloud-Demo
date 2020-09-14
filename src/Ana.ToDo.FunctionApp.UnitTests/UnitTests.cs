@@ -72,12 +72,27 @@ namespace Ana.Todo.UnitTests
             ToDoValidator validator = new ToDoValidator();
 
             var toDoItem = new ToDoItem{
-                Name = "kVYrsidknLPTGalHyAbOpDOk6NBPXt22iTQyuTUagBKqPyvqyrsQqJxbbmkcq"
+                Name = "kVYrsidknLPTGal"
             };
 
             var result = validator.Validate(toDoItem);
             
             Assert.False(result.IsValid);
+        }
+
+        [Fact]
+        public void ValidationSucceeds()
+        {
+            ToDoValidator validator = new ToDoValidator();
+
+            var toDoItem = new ToDoItem{
+                Name = "kVYrsidknLPTGal",
+                IsComplete = true
+            };
+
+            var result = validator.Validate(toDoItem);
+            
+            Assert.True(result.IsValid);
         }
     }
 }
