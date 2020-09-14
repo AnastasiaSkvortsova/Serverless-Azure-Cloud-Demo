@@ -737,6 +737,45 @@
             }
         },
         {
+            "type": "Microsoft.ApiManagement/service/apis/operations",
+            "apiVersion": "2019-01-01",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/delete-deletetodoitembyid')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
+            ],
+            "properties": {
+                "displayName": "toDoItemById",
+                "method": "DELETE",
+                "urlTemplate": "/toDoItem/{id}",
+                "templateParameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "values": [],
+                        "type": ""
+                    }
+                ],
+                "responses": []
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/operations",
+            "apiVersion": "2019-01-01",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/delete-deletetodoitem')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'func-deleteit')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
+            ],
+            "properties": {
+                "displayName": "toDoItems",
+                "method": "DELETE",
+                "urlTemplate": "/toDoItems",
+                "templateParameters": [],
+                "responses": []
+            }
+        },
+        {
             "type": "Microsoft.ApiManagement/service/products/policies",
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/starter/policy')]",
@@ -774,6 +813,34 @@
             ],
             "properties": {
                 "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/getToDoItem/{id}\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
+                "format": "xml"
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-01-01",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/delete-deletetodoitem/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api', 'delete-deletetodoitem')]",
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
+            ],
+            "properties": {
+                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/deleteToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
+                "format": "xml"
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-01-01",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/delete-deletetodoitembyid/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api', 'delete-deletetodoitembyid')]",
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
+            ],
+            "properties": {
+                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/deleteToDoItem/{id}\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
                 "format": "xml"
             }
         },

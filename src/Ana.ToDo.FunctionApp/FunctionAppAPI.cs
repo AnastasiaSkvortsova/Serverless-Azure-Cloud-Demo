@@ -64,5 +64,26 @@ namespace Ana.ToDo.FunctionApp
 
         }
 
+        [FunctionName("deleteToDoItem")]
+        public static async Task<IActionResult> deleteToDoItem(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "deleteToDoItem/{id?}")] HttpRequest req, int? id,
+            ILogger log)
+        {
+            log.LogInformation("C# HTTP trigger function processed a deleteToDoItem request.");
+
+            if (id == null) 
+            {
+                int rowsAffected = await new Repository(connectionDetails).DeleteAllToDoItemsFromDB();
+
+                return new OkObjectResult("rows affected: "+rowsAffected);
+            } else
+            {
+                int rowsAffected = await new Repository(connectionDetails).DeleteItemByIdFromDB(id.Value);
+
+                return new OkObjectResult("toDoItem with id: "+id+" was successfully deleted");
+            }
+
+        }
+
     }
 }

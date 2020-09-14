@@ -77,5 +77,30 @@ namespace Ana.ToDo.FunctionApp
             await sqlConnection.CloseAsync();
             return toDoItem;
         }
+
+        public async Task<int> DeleteAllToDoItemsFromDB ()
+        {
+            await sqlConnection.OpenAsync();
+            string deleteAllToDos = "DELETE FROM toDoItems";
+            
+            SqlCommand deleteAllToDosCommand = new SqlCommand(deleteAllToDos, sqlConnection);
+            var numberOfRowsAffected = deleteAllToDosCommand.ExecuteNonQuery();
+            
+            await sqlConnection.CloseAsync();
+            return numberOfRowsAffected;
+        }
+
+        public async Task<int> DeleteItemByIdFromDB (int id)
+        {
+            await sqlConnection.OpenAsync();
+            string deleteToDoById = @"DELETE FROM toDoItems WHERE id=@Id";
+            
+            SqlCommand deleteToDoByIdCommand = new SqlCommand(deleteToDoById, sqlConnection);
+            deleteToDoByIdCommand.Parameters.AddWithValue("@Id", id);
+            var numberOfRowsAffected = deleteToDoByIdCommand.ExecuteNonQuery();
+            
+            await sqlConnection.CloseAsync();
+            return numberOfRowsAffected;
+        }
     }
 }
