@@ -764,7 +764,7 @@
             "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/delete-deletetodoitem')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'func-deleteit')]",
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
             "properties": {
