@@ -700,6 +700,29 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-01-01",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/get-gettodoitembyid')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
+            ],
+            "properties": {
+                "displayName": "toDoItemById",
+                "method": "GET",
+                "urlTemplate": "/ToDoItem/{id}",
+                "templateParameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "values": [],
+                        "type": ""
+                    }
+                ],
+                "responses": []
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/operations",
+            "apiVersion": "2019-01-01",
             "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/post-posttodoitem')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
@@ -732,6 +755,20 @@
             "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/get-gettodoitem/policy')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api', 'get-gettodoitem')]",
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
+                "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
+            ],
+            "properties": {
+                "value": "[concat('<policies>\r\n  <inbound>\r\n    <base />\r\n    <set-backend-service id=\"apim-generated-policy\" backend-id=\"', parameters('appName'), '\" />\r\n    <rewrite-uri template=\"/getToDoItem\" />\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>')]",
+                "format": "xml"
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-01-01",
+            "name": "[concat(parameters('service_ToDoAppAPIManagement_name'), '/todofunctionapp-api/get-gettodoitembyid/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api', 'get-gettodoitembyid')]",
                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_ToDoAppAPIManagement_name'), 'todofunctionapp-api')]",
                 "[resourceId('Microsoft.ApiManagement/service', parameters('service_ToDoAppAPIManagement_name'))]"
             ],
