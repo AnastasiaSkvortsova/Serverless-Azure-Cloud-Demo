@@ -42,9 +42,9 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             Assert.IsTrue(response.IsSuccessStatusCode, $"Status: {response.StatusCode}");
 
             //try to get the deleted item
-            await u.getToDoItemById(newToDo.Id);
+            var badRequest = await u.getToDoItemById(newToDo.Id);
             //assert that response status code is Not Found, otherwise print status code
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode, $"Status: {response.StatusCode}");
+            Assert.AreEqual(null, badRequest);
         }
 
     }

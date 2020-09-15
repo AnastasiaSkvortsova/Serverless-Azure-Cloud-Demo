@@ -57,14 +57,18 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             var response = await client.GetAsync("toDoItem/"+id);
 
             //assert that response contains success status code, otherwise print status code
-            Assert.IsTrue(response.IsSuccessStatusCode, $"Status: {response.StatusCode}");
-
-            //read the response content as a string
-            var toDoItem = await response.Content.ReadAsStringAsync();
-            //convert it into ToDoItem format
-            var result = JsonConvert.DeserializeObject<ToDoItem>(toDoItem);
-            //write item parameters to Console, run in Debug mode to see output
-            return result;
+            if(response.IsSuccessStatusCode)
+            {
+                //read the response content as a string
+                var toDoItem = await response.Content.ReadAsStringAsync();
+                //convert it into ToDoItem format
+                var result = JsonConvert.DeserializeObject<ToDoItem>(toDoItem);
+                //write item parameters to Console, run in Debug mode to see output
+                return result;
+            } else 
+            {
+                return null;
+            }
         }
 
     }

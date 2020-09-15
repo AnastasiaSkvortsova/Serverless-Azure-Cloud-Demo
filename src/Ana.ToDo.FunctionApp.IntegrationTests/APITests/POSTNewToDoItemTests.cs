@@ -108,24 +108,6 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
         }
 
         [TestMethod]
-        [Description("Negative; POST an Invalid ToDo json (with Missing Required Parameter 'IsComplete')")]
-        public async Task postInvalidToDoJson_MissingRequiredParameterIsComplete_BadRequest() 
-        {
-            var toDo = new ToDoItem()
-            {
-                Name = "wash the car"
-            };
-            //convert toDo object into json to pass it as a parameter of POST method
-            var jsonItem = JsonConvert.SerializeObject(toDo);
-
-            //execute request and extract data from the response
-            var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
-
-            //assert that Response contains "Created" status code
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [TestMethod]
         [Description("Negative; POST an Invalid ToDo json (with Short'Name')")]
         public async Task postInvalidToDoJson_ShortName_BadRequest() 
         {
