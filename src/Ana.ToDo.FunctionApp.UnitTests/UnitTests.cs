@@ -67,20 +67,6 @@ namespace Ana.Todo.UnitTests
         }
 
         [Fact]
-        public void ValidationFailsWithNoCompletionStatus()
-        {
-            ToDoValidator validator = new ToDoValidator();
-
-            var toDoItem = new ToDoItem{
-                Name = "kVYrsidknLPTGal"
-            };
-
-            var result = validator.Validate(toDoItem);
-            
-            Assert.False(result.IsValid);
-        }
-
-        [Fact]
         public void ValidationSucceeds()
         {
             ToDoValidator validator = new ToDoValidator();
