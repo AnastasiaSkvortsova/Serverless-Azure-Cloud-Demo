@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using FluentValidation;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Ana.ToDo.FunctionApp
 {
@@ -35,7 +36,7 @@ namespace Ana.ToDo.FunctionApp
 
             if (!result.IsValid)
             {
-                return new BadRequestObjectResult("Pass a Valid ToDo Model");
+                return new BadRequestObjectResult(String.Join(", ", result.Errors.Select(e => e.ErrorMessage)));
             }
 
             toDoItem = await new Repository(connectionDetails).SaveToDoItemToDB(toDoItem);
