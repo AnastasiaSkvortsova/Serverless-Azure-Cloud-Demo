@@ -60,7 +60,13 @@ namespace Ana.ToDo.FunctionApp
             {
                 ToDoItem toDo = await new Repository(connectionDetails).GetItemByIdFromDB(id.Value);
 
-                return new OkObjectResult(toDo);
+                if(toDo!=null)
+                {
+                    return new OkObjectResult(toDo);
+                } else 
+                {
+                    return new NotFoundObjectResult("ToDo Item with provided Id was not found");
+                }
             }
 
         }
