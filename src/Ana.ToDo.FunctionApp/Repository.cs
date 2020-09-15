@@ -63,14 +63,17 @@ namespace Ana.ToDo.FunctionApp
             SqlCommand getItemByIdCommand = new SqlCommand(getItemById, sqlConnection);
             getItemByIdCommand.Parameters.AddWithValue("@Id", Id);
 
-            ToDoItem toDoItem = new ToDoItem();
+            ToDoItem toDoItem = null;
             using (SqlDataReader reader = getItemByIdCommand.ExecuteReader())
             {
                 if(reader.Read())
                 {
-                    toDoItem.Id = (int)reader.GetValue("id");
-                    toDoItem.Name = (string)reader.GetValue("name");
-                    toDoItem.IsComplete = (bool)reader.GetValue("isComplete");
+                    toDoItem = new ToDoItem
+                    {
+                        Id = (int)reader.GetValue("id"),
+                        Name = (string)reader.GetValue("name"),
+                        IsComplete = (bool)reader.GetValue("isComplete")
+                    };
                 }
             }
 

@@ -31,29 +31,31 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
         [Description("Positive; DELETE ToDo Item By provided Id (number)")]
         public async Task deleteAllToDoItems_OK() 
         {
-            //POST new toDo Items
-            UtilityMethods u = new UtilityMethods();
-            var newToDo = await u.postNewToDoItem("feed the dog", false);
-            await u.postNewToDoItem("start a dishwasher", false);
-            await u.postNewToDoItem("grocery shopping", false);
-            
+            //POST new toDo Item
+            var toDo = new ToDoItem()
+            {
+                Name = "new errand",
+                IsComplete = true
+            };
+            //convert toDo object into json to pass it as a parameter of POST method
+            var jsonItem = JsonConvert.SerializeObject(toDo);
+            //execute request and extract data from the response
+            var res = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
+            //read the response as a string
+            var toDoItem = await res.Content.ReadAsStringAsync();
+            //convert it into ToDoItem model
+            toDo = JsonConvert.DeserializeObject<ToDoItem>(toDoItem);
+
             //execute Http request and extract data from the response
             var response = await client.DeleteAsync("toDoItems");
 
             //assert that response contains success status code, otherwise print status code
             Assert.IsTrue(response.IsSuccessStatusCode, $"Status: {response.StatusCode}");
 
-            //read the response content as a string
-            var rowsAffected = await response.Content.ReadAsStringAsync();
-            //convert it into ToDoItem format
-            var result = JsonConvert.DeserializeObject<int>(rowsAffected);
-            //write item parameters to Console, run in Debug mode to see output
-            Assert.IsTrue(result >= 3);
-
-            //try to get the deleted item
-            var badRequest = await u.getToDoItemById(newToDo.Id);
+            //try to get deleted Item
+            var badResponse = await client.GetAsync("toDoItem/"+toDo.Id);
             //assert that response status code is Not Found, otherwise print status code
-            Assert.AreEqual(null, badRequest);
+            Assert.AreEqual(HttpStatusCode.NotFound, badResponse.StatusCode);
         }
 
     }
