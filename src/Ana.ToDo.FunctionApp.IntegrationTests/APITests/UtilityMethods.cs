@@ -35,10 +35,10 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             };
             //convert toDo object into json to pass it as a parameter of POST method
             var jsonItem = JsonConvert.SerializeObject(toDo);
-
+    
             //execute request and extract data from the response
             var response = await client.PostAsync("toDoItems", new StringContent(jsonItem, Encoding.UTF8, "application/json"));
-            System.Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+
             //assert that Response contains "Created" status code
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
 

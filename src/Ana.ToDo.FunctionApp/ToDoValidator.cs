@@ -8,7 +8,6 @@ namespace Ana.ToDo.FunctionApp
         {
             RuleFor(ToDoItem => ToDoItem.Name).NotEmpty();
             RuleFor(ToDoItem => ToDoItem.Name).Length(3, 60);
-            RuleFor(ToDoItem => ToDoItem.IsComplete).NotEmpty();
         }
     }
 
