@@ -76,7 +76,7 @@ namespace Ana.ToDo.FunctionApp
             {
                 int rowsAffected = await new Repository(connectionDetails).DeleteAllToDoItemsFromDB();
 
-                return new OkObjectResult("rows affected: "+rowsAffected);
+                return new OkObjectResult(rowsAffected);
             } else
             {
                 int rowsAffected = await new Repository(connectionDetails).DeleteItemByIdFromDB(id.Value);

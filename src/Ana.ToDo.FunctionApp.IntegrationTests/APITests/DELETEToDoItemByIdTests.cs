@@ -41,13 +41,6 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             //assert that response contains success status code, otherwise print status code
             Assert.IsTrue(response.IsSuccessStatusCode, $"Status: {response.StatusCode}");
 
-            //read the response content as a string
-            var rowsAffected = await response.Content.ReadAsStringAsync();
-            //convert it into ToDoItem format
-            var result = JsonConvert.DeserializeObject<int>(rowsAffected);
-            //write item parameters to Console, run in Debug mode to see output
-            Assert.AreEqual(1, result);
-
             //try to get the deleted item
             await u.getToDoItemById(newToDo.Id);
             //assert that response status code is Not Found, otherwise print status code
