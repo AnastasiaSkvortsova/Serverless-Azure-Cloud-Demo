@@ -86,7 +86,7 @@ stages:
         arguments: '--configuration release --filter "ClassName=Ana.Todo.FunctionApp.IntegrationTests.DBTests"'
   
   - job: integration_tests
-    dependsOn: deploy_to_test
+    dependsOn: data_base_tests
     pool:
       vmImage: 'windows-2019'
     steps:
