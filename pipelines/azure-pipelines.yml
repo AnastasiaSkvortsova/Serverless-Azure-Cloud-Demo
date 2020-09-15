@@ -108,32 +108,12 @@ stages:
         scanPath: '**/Ana.ToDo.FunctionApp.csproj'
         format: 'ALL'
         failOnCVSS: '1'
-    
-    - task: CmdLine@2
-      inputs:
-        script: 'ls'
-    - task: CmdLine@2
-      inputs:
-        script: |
-          cd $(ReleaseArtifactDirectory)
-          ls
-    
-    - task: CmdLine@2
-      inputs:
-        script: |
-          cd $(Build.StagingDirectory)
-          ls
-    - task: CmdLine@2
-      inputs:
-        script: |
-          cd $(Dir)
-          ls
 
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: 'dependency-check-junit.xml'
-        searchFolder: '$(Common.TestResultsDirectory)'
+        searchFolder: '$(Common.TestResultsDirectory)/dependency-check'
         testRunTitle: 'OWASP Dependency Check'
 
 - stage: 'Stage'
