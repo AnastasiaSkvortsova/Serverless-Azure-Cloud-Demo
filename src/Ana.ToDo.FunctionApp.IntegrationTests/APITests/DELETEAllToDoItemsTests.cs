@@ -27,7 +27,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             client.DefaultRequestHeaders.Add("Ocp-Apim-Trace", "true");
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Positive; DELETE ToDo Item By provided Id (number)")]
         public async Task deleteAllToDoItems_OK() 
         {

@@ -27,7 +27,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             client.DefaultRequestHeaders.Add("Ocp-Apim-Trace", "true");
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Positive; POST New ToDo Item")]
         public async Task postToDoItems_Created() 
         {
@@ -54,7 +54,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             Assert.AreEqual(toDo.Name, result.Name);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Positive; POST an ToDo json with Id (Id will be ignored)")]
         public async Task postInvalidToDoJson_WithId_BadRequest() 
         {
@@ -74,7 +74,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Negative; POST an Empty ToDo json")]
         public async Task postEmptyToDoJson_BadRequest() 
         {
@@ -89,7 +89,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
 
         //VALIDATION API TESTS
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Negative; POST an Invalid ToDo json (with Missing Required Parameter 'Name')")]
         public async Task postInvalidToDoJson_MissingRequiredParameterName_BadRequest() 
         {
@@ -107,7 +107,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Negative; POST an Invalid ToDo json (with Short'Name')")]
         public async Task postInvalidToDoJson_ShortName_BadRequest() 
         {
@@ -126,7 +126,7 @@ namespace Ana.Todo.FunctionApp.IntegrationTests.APITests
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("CategoryAPI")]
         [Description("Negative; POST an Invalid ToDo json (with Long'Name')")]
         public async Task postInvalidToDoJson_LongName_BadRequest() 
         {
